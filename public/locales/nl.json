@@ -1,0 +1,8 @@
+{
+    "easy": "eenvoudig",
+    "medium": "medium",
+    "hard": "moeilijk",
+    "level" : "niveau",
+    "select":"select",
+    "select-type":  "@:select {type}"
+  }

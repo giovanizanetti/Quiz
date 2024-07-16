@@ -1,0 +1,8 @@
+{
+  "easy": "fácil",
+  "medium": "médio",
+  "hard": "difícil",
+  "level": "nível",
+  "select": "select",
+  "select-type": "@:select {type}"
+}
