@@ -4,6 +4,7 @@ import { Button, Space } from 'antd'
 import { AntDesignOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { capitalize } from '../helpers/strings'
+import { useNavigate } from 'react-router-dom'
 
 const styleCenter = {
   display: 'flex',
@@ -13,9 +14,10 @@ const styleCenter = {
 
 const Home = () => {
   const { t } = useTranslation()
+const navigate = useNavigate()
 
   const buttonLabel = capitalize(t('start-type', { type: t('quiz') }))
-  const handleClick = () => console.log('Click')
+  const handleClick = () => navigate('quiz/question/1')
 
   return (
     <Space
