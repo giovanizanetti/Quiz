@@ -51,7 +51,7 @@ const App: React.FC = () => {
     <Tooltip title={tooltip}>
       <Select
         defaultValue={category.name}
-        style={{ width: 300 }}
+        style={{ width: 300, textAlign: 'center' }}
         onChange={handleChange}
         options={getFormattedItems(categories)}
       />

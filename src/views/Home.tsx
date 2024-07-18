@@ -3,7 +3,7 @@ import CategorySelect from '../components/CategorySelect'
 import { Space } from 'antd'
 
 const Home = () => (
-  <Space wrap>
+  <Space wrap style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
     <LevelSelect />
     <CategorySelect />
   </Space>

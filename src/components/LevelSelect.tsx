@@ -27,7 +27,7 @@ const App: React.FC = () => {
     <Tooltip title={tooltip}>
       <Select
         defaultValue={level}
-        style={{ width: 120 }}
+        style={{ width: 300, textAlign: 'center' }}//TODO move to a variable
         onChange={handleChange}
         options={items}
       />
