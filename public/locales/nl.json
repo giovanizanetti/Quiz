@@ -1,9 +1,10 @@
 {
-    "easy": "eenvoudig",
-    "medium": "medium",
-    "hard": "moeilijk",
-    "level" : "niveau",
-    "select":"select",
-    "select-type":  "@:select {type}",
-    "defaultErrorMessage": "Oeps!! Er is iets misgegaan 🙁"
+  "easy": "eenvoudig",
+  "medium": "medium",
+  "hard": "moeilijk",
+  "level": "niveau",
+  "select": "select",
+  "select-type": "@:select {type}",
+  "defaultErrorMessage": "Oeps!! Er is iets misgegaan 🙁",
+  "category": "categorie"
 }

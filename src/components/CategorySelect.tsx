@@ -3,31 +3,41 @@ import type { MenuProps } from 'antd'
 import { Button, Dropdown, Space } from 'antd'
 import { capitalize } from '../helpers/strings'
 import { useTranslation } from 'react-i18next'
-import { LEVEL } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
+import { TAppDispatch } from '../store'
 
-import { ICategoriesState, fetchCategories } from '../store/categoriesSlice'
+import {
+  ICategoriesState,
+  ICategory,
+  TFetchCategoryAction,
+  fetchCategories,
+} from '../store/categoriesSlice'
 
 const App: React.FC = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
+  const dispatch: TAppDispatch = useDispatch()
 
-  const categories = useSelector((state: ICategoriesState) => state.categories)
-  const errorMessage = useSelector((state: ICategoriesState) => state.errorMessaage)
+  const getFormattedItems = (data: ICategory[]): MenuProps['items'] => {
+    return data
+      .map((item: ICategory) => ({
+        key: item.id,
+        label: item.name,
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+  }
 
-  useEffect(() =>  ,[])
+  const items = useSelector((state: ICategoriesState) => state.categories.data)
 
-  const items: MenuProps['items'] = Object.values(LEVEL).map((item) => ({
-    key: item,
-    label: capitalize(t(item)),
-  }))
+  useEffect(() => {
+    dispatch(fetchCategories() as unknown as TFetchCategoryAction)
+  }, [])
 
-  const label = capitalize(t('select-type', { type: t('level') }))
+  const label = capitalize(t('select-type', { type: t('category') }))
 
   return (
     <Space direction="vertical">
       <Space wrap>
-        <Dropdown menu={{ items }} placement="bottom">
+        <Dropdown menu={{ items: getFormattedItems(items)  }} placement="bottom">
           <Button>{label}</Button>
         </Dropdown>
       </Space>

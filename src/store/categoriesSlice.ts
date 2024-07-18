@@ -1,35 +1,44 @@
 import { createSlice, createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit'
-import { useTranslation } from 'react-i18next'
 import { OPEN_DB_BASE_URL } from '../constants'
+import i18n from '../config/i18n'
 
-const { t } = useTranslation()
+export const fetchCategories: TFetchCategoryAction = createAsyncThunk(
+  'fetchCategories',
+  async () => {
+    const response = await fetch(`${OPEN_DB_BASE_URL}/api_category.php`, {
+      method: 'GET',
+    })
+    const data = await response.json()
+    return data.trivia_categories as ICategory[]
+  }
+)
 
-export const fetchCategories: AsyncThunk<
+export type TFetchCategoryAction = AsyncThunk<
   ICategory[],
   void,
   { state: ICategoriesState }
-> = createAsyncThunk('categories/fetchCategories', async () => {
-  const response = await fetch(`${OPEN_DB_BASE_URL}/api_category.php`)
-  const data = await response.json()
-  return data.trivia_categories as ICategory[]
-})
+>
 
 export interface ICategory {
   id: string
   name: string
 }
 export interface ICategoriesState {
+  categories: IinitialState
+}
+
+export interface IinitialState {
   loading: boolean
   errorMessaage: string
   success: boolean
-  categories: ICategory[]
+  data: ICategory[]
 }
 
-const initialState: ICategoriesState = {
+const initialState: IinitialState = {
   loading: false,
   errorMessaage: '',
   success: false,
-  categories: [],
+  data: [],
 }
 
 const categoriesSlice = createSlice({
@@ -40,15 +49,16 @@ const categoriesSlice = createSlice({
     builder.addCase(fetchCategories.pending, (state) => {
       state.loading = true
     }),
-      builder.addCase(fetchCategories.fulfilled, (state, action) => {
-        state.success = true
-        state.loading = false
-        state.categories = action.payload
-      }),
-      builder.addCase(fetchCategories.rejected, (state, action) => {
-        state.loading = false
-        state.errorMessaage = action.error.message || t('defaultErrorMessage')
-      })
+    builder.addCase(fetchCategories.fulfilled, (state, action) => {
+      state.success = true
+      state.loading = false
+      state.data = action.payload
+    }),
+    builder.addCase(fetchCategories.rejected, (state, action) => {
+      state.loading = false
+      state.errorMessaage =
+        action.error.message || i18n.t('defaultErrorMessage')
+    })
   },
 })
 

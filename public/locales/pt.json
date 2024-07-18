@@ -5,6 +5,6 @@
   "level": "nível",
   "select": "select",
   "select-type": "@:select {type}",
-  "defaultErrorMessage": "Opa!! Algo deu erradoi 🙁"
-  
+  "defaultErrorMessage": "Opa!! Algo deu erradoi 🙁",
+  "category": "categoria"
 }

@@ -4,5 +4,6 @@
   "hard": "hard",
   "level": "level",
   "select-type": "select {{type}}",
-  "defaultErrorMessage": "Oops!! Something went wrong 🙁"
+  "defaultErrorMessage": "Oops!! Something went wrong 🙁",
+  "category": "category"
 }
