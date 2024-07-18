@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit'
 import { OPEN_DB_BASE_URL } from '../constants'
 import i18n from '../config/i18n'
+import { IQuizState } from './quizSlice'
 
 export const fetchCategories: TFetchCategoryAction = createAsyncThunk(
   'fetchCategories',
@@ -20,11 +21,12 @@ export type TFetchCategoryAction = AsyncThunk<
 >
 
 export interface ICategory {
-  id: string
+  id: number
   name: string
 }
 export interface ICategoriesState {
   categories: IinitialState
+  quiz: IQuizState
 }
 
 export interface IinitialState {

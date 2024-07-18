@@ -5,6 +5,7 @@ import { Space } from 'antd'
 const Home = () => (
   <Space wrap>
     <LevelSelect />
+    <CategorySelect />
   </Space>
 )
 

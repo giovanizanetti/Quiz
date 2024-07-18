@@ -12,7 +12,12 @@ interface IQuestion {
   difficulty: typeof LEVEL
 }
 
-interface IQuizState {
+export interface ICategoryOption {
+  value: number
+  label: string
+}
+
+export interface IQuizState {
   level: TLevel
   category: { id: number; name: string }
   currentQuestion: IQuestion | null
@@ -41,9 +46,14 @@ const quizSlice = createSlice({
       const level = action.payload
       return { ...state, level }
     },
+    selectCategory: (state, { payload }) => {
+      const { value, label } = payload as ICategoryOption
+      const category = { id: value, name: label }
+      return { ...state, category }
+    },
     resetQuiz: () => initialState,
   },
 })
 
-export const { selectLevel, resetQuiz } = quizSlice.actions
+export const { selectLevel, resetQuiz, selectCategory } = quizSlice.actions
 export default quizSlice.reducer

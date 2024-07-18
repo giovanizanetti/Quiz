@@ -4,15 +4,15 @@ import { capitalize } from '../helpers/strings'
 import { useTranslation } from 'react-i18next'
 import { LEVEL } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
-import { TAppDispatch } from '../store'
+import { IRootState, TAppDispatch } from '../store'
 import { TLevel, selectLevel } from '../store/quizSlice'
 
 const App: React.FC = () => {
   const { t } = useTranslation()
 
   const dispatch: TAppDispatch = useDispatch()
-  
-  const level = useSelector((state: any) => state.quiz.level)
+
+  const level: TLevel = useSelector((state: IRootState) => state.quiz.level)
 
   const items = Object.values(LEVEL).map((item) => ({
     value: item,
