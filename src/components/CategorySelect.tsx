@@ -1,6 +1,3 @@
-import { Select, Tooltip } from 'antd'
-import { capitalize } from '../helpers/strings'
-import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 
@@ -11,10 +8,10 @@ import {
   fetchCategories,
 } from '../store/categoriesSlice'
 import { useEffectOnce } from '../helpers/react'
-import { ICategoryOption, IQuizState, selectCategory } from '../store/quizSlice'
+import { selectCategory } from '../store/quizSlice'
+import UtilSelector, { ISelectorOption } from './UtilSelector'
 
-const App: React.FC = () => {
-  const { t } = useTranslation()
+const CategorySelect: React.FC = () => {
   const dispatch: TAppDispatch = useDispatch()
 
   const categories = useSelector(
@@ -29,7 +26,7 @@ const App: React.FC = () => {
     (state: IRootState) => state.quiz.category
   )
 
-  const getFormattedItems = (data: ICategory[]): ICategoryOption[] => {
+  const getFormattedItems = (data: ICategory[]): ISelectorOption[] => {
     return data
       .map((item: ICategory) => ({
         value: item.id,
@@ -38,24 +35,20 @@ const App: React.FC = () => {
       .sort((a, b) => a.label.localeCompare(b.label))
   }
 
-  const tooltip = capitalize(t('select-type', { type: t('category') }))
-
   const handleChange = (
     value: string,
-    option: ICategoryOption | ICategoryOption[]
+    option?: ISelectorOption | ISelectorOption[]
   ) => {
     dispatch(selectCategory(option))
   }
 
   return (
-    <Tooltip title={tooltip}>
-      <Select
-        defaultValue={category.name}
-        style={{ width: 300, textAlign: 'center' }}
-        onChange={handleChange}
-        options={getFormattedItems(categories)}
-      />
-    </Tooltip>
+    <UtilSelector
+      onChange={handleChange}
+      options={getFormattedItems(categories)}
+      type="category"
+      defaultValue={category.name}
+    />
   )
 }
-export default App
+export default CategorySelect

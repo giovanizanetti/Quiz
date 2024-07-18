@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { LEVEL } from '../constants'
+import { ISelectorOption } from '../components/UtilSelector'
 
 export type TLevel = (typeof LEVEL)[keyof typeof LEVEL]
 
@@ -10,11 +11,6 @@ interface IQuestion {
   correct_answer: string
   incorrect_answers: string[]
   difficulty: typeof LEVEL
-}
-
-export interface ICategoryOption {
-  value: number
-  label: string
 }
 
 export interface IQuizState {
@@ -47,7 +43,7 @@ const quizSlice = createSlice({
       return { ...state, level }
     },
     selectCategory: (state, { payload }) => {
-      const { value, label } = payload as ICategoryOption
+      const { value, label } = payload as ISelectorOption
       const category = { id: value, name: label }
       return { ...state, category }
     },

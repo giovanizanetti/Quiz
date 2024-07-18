@@ -4,7 +4,9 @@
   "hard": "moeilijk",
   "level": "niveau",
   "select": "select",
+  "quiz":"quiz",
   "select-type": "@:select {type}",
+  "start-type": "{{type}} starten",
   "defaultErrorMessage": "Oeps!! Er is iets misgegaan 🙁",
   "category": "categorie"
 }
