@@ -3,5 +3,9 @@
   "medium": "medium",
   "hard": "hard",
   "level": "level",
-  "select-type": "select {{type}}"
+  "quiz":"quiz",
+  "select-type": "Select {{type}}",
+  "start-type": "start {{type}}",
+  "defaultErrorMessage": "Oops!! Something went wrong 🙁",
+  "category": "category"
 }

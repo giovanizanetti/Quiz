@@ -1,8 +1,12 @@
 {
-    "easy": "eenvoudig",
-    "medium": "medium",
-    "hard": "moeilijk",
-    "level" : "niveau",
-    "select":"select",
-    "select-type":  "@:select {type}"
-  }
+  "easy": "eenvoudig",
+  "medium": "medium",
+  "hard": "moeilijk",
+  "level": "niveau",
+  "select": "select",
+  "quiz":"quiz",
+  "select-type": "@:select {type}",
+  "start-type": "{{type}} starten",
+  "defaultErrorMessage": "Oeps!! Er is iets misgegaan 🙁",
+  "category": "categorie"
+}

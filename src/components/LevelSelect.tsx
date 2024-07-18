@@ -1,28 +1,31 @@
-import React from 'react'
-import type { MenuProps } from 'antd'
-import { Button, Dropdown, Space } from 'antd'
 import { capitalize } from '../helpers/strings'
 import { useTranslation } from 'react-i18next'
 import { LEVEL } from '../constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { IRootState, TAppDispatch } from '../store'
+import { TLevel, selectLevel } from '../store/quizSlice'
+import UtilSelector, { ISelectorOption } from './UtilSelector'
 
-const App: React.FC = () => {
+const LevelSelect: React.FC = () => {
   const { t } = useTranslation()
+  const dispatch: TAppDispatch = useDispatch()
+  
+  const level: TLevel = useSelector((state: IRootState) => state.quiz.level)
 
-  const items: MenuProps['items'] = Object.values(LEVEL).map((item) => ({
-    key: item,
+  const items = Object.values(LEVEL).map((item) => ({
+    value: item,
     label: capitalize(t(item)),
-  }))
+  })) as unknown as ISelectorOption[]
 
-  const label = capitalize(t('select-type', { type: t('level') }))
+  const handleChange = (value: TLevel | string) => dispatch(selectLevel(value))
 
   return (
-    <Space direction="vertical">
-      <Space wrap>
-        <Dropdown menu={{ items }} placement="bottom">
-          <Button>{label}</Button>
-        </Dropdown>
-      </Space>
-    </Space>
+    <UtilSelector
+      defaultValue={`${level}`}
+      onChange={handleChange}
+      options={items}
+      type="level"
+    ></UtilSelector>
   )
 }
-export default App
+export default LevelSelect

@@ -4,5 +4,9 @@
   "hard": "difícil",
   "level": "nível",
   "select": "select",
-  "select-type": "@:select {type}"
+  "quiz":"quiz",
+  "select-type": "@:select {type}",
+  "start-type": "iniciar {{type}}",
+  "defaultErrorMessage": "Opa!! Algo deu erradoi 🙁",
+  "category": "categoria"
 }
