@@ -12,10 +12,21 @@ import {
   TFetchCategoryAction,
   fetchCategories,
 } from '../store/categoriesSlice'
+import { useEffectOnce } from '../helpers/react'
 
 const App: React.FC = () => {
   const { t } = useTranslation()
   const dispatch: TAppDispatch = useDispatch()
+
+  const items = useSelector((state: ICategoriesState) => state.categories.data)
+
+  useEffectOnce(() => {
+    dispatch(fetchCategories() as unknown as TFetchCategoryAction)
+  })
+
+  
+
+  const label = capitalize(t('select-type', { type: t('category') }))
 
   const getFormattedItems = (data: ICategory[]): MenuProps['items'] => {
     return data
@@ -26,18 +37,10 @@ const App: React.FC = () => {
       .sort((a, b) => a.label.localeCompare(b.label))
   }
 
-  const items = useSelector((state: ICategoriesState) => state.categories.data)
-
-  useEffect(() => {
-    dispatch(fetchCategories() as unknown as TFetchCategoryAction)
-  }, [])
-
-  const label = capitalize(t('select-type', { type: t('category') }))
-
   return (
     <Space direction="vertical">
       <Space wrap>
-        <Dropdown menu={{ items: getFormattedItems(items)  }} placement="bottom">
+        <Dropdown menu={{ items: getFormattedItems(items) }} placement="bottom">
           <Button>{label}</Button>
         </Dropdown>
       </Space>
