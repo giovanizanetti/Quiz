@@ -14,10 +14,9 @@ const styleCenter = {
 
 const Home = () => {
   const { t } = useTranslation()
-const navigate = useNavigate()
-
+  const navigate = useNavigate()
   const buttonLabel = capitalize(t('start-type', { type: t('quiz') }))
-  const handleClick = () => navigate('quiz/question/1')
+  const goToQuiz = () => navigate('quiz/question/1')
 
   return (
     <Space
@@ -31,7 +30,7 @@ const navigate = useNavigate()
         <CategorySelect />
       </Space>
       <Button
-        onClick={handleClick}
+        onClick={goToQuiz}
         style={{ margin: '2rem' }}
         type="primary"
         size="large"

@@ -8,9 +8,8 @@ import UtilSelector, { ISelectorOption } from './UtilSelector'
 
 const LevelSelect: React.FC = () => {
   const { t } = useTranslation()
-
   const dispatch: TAppDispatch = useDispatch()
-
+  
   const level: TLevel = useSelector((state: IRootState) => state.quiz.level)
 
   const items = Object.values(LEVEL).map((item) => ({
