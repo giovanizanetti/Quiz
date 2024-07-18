@@ -3,7 +3,7 @@ import type { MenuProps } from 'antd'
 import { Button, Dropdown, Space } from 'antd'
 import { capitalize } from '../helpers/strings'
 import { useTranslation } from 'react-i18next'
-import { LEVEL } from '../contants'
+import { LEVEL } from '../constants'
 
 const App: React.FC = () => {
   const { t } = useTranslation()

@@ -5,7 +5,7 @@ describe("Helpers", () => {
   describe("String helpers", () => {
     const lowecased = "memorix";
     const capitalized = "Memorix";
-    test("capitilize word correctelly", () => {
+    test("capitalize word correctly", () => {
       expect(capitalize(lowecased)).toEqual(capitalized);
     });
   });
