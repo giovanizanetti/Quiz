@@ -9,3 +9,5 @@ export const LANGUAGE = {
   pt: 'pt',
   nl: 'nl',
 } as const
+
+export const OPEN_DB_BASE_URL = 'https://opentdb.com'

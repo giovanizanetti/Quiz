@@ -12,7 +12,7 @@ const quizSlice = createSlice({
       const level = action.payload
       return { ...state, level }
     },
-    resetQuiz: (state) => initialState,
+    resetQuiz: () => initialState,
   },
 })
 

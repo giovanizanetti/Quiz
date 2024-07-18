@@ -4,5 +4,6 @@
     "hard": "moeilijk",
     "level" : "niveau",
     "select":"select",
-    "select-type":  "@:select {type}"
-  }
+    "select-type":  "@:select {type}",
+    "defaultErrorMessage": "Oeps!! Er is iets misgegaan 🙁"
+}

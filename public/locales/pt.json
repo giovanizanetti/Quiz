@@ -4,5 +4,7 @@
   "hard": "difícil",
   "level": "nível",
   "select": "select",
-  "select-type": "@:select {type}"
+  "select-type": "@:select {type}",
+  "defaultErrorMessage": "Opa!! Algo deu erradoi 🙁"
+  
 }

@@ -3,5 +3,6 @@
   "medium": "medium",
   "hard": "hard",
   "level": "level",
-  "select-type": "select {{type}}"
+  "select-type": "select {{type}}",
+  "defaultErrorMessage": "Oops!! Something went wrong 🙁"
 }
