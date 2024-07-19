@@ -2,7 +2,7 @@ import { Layout } from 'antd'
 
 const { Header } = Layout
 
-const App = () => {
+export const NavBar = () => {
   return (
     <Layout>
       <Header style={{ position: 'fixed', zIndex: 1, width: '100%', top: 0 }}>
@@ -21,5 +21,3 @@ const App = () => {
     </Layout>
   )
 }
-
-export default App

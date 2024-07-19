@@ -2,15 +2,13 @@ import { configureStore } from '@reduxjs/toolkit'
 import quizReducer, { IQuizState } from './quizSlice'
 import categoriesReducer, { ICategoriesState } from './categoriesSlice'
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     quiz: quizReducer,
     categories: categoriesReducer,
   },
-  devTools: true
+  devTools: true,
 })
-
-export default store
 
 export interface IRootState {
   quiz: IQuizState

@@ -1,4 +1,4 @@
-import LevelSelect from '../components/LevelSelect'
+import { LevelSelect } from '../components/LevelSelect'
 import CategorySelect from '../components/CategorySelect'
 import { Button, Space } from 'antd'
 import { AntDesignOutlined } from '@ant-design/icons'
@@ -12,7 +12,7 @@ const styleCenter = {
   width: '100%',
 }
 
-const Home = () => {
+export const Home = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const buttonLabel = capitalize(t('start-type', { type: t('quiz') }))
@@ -41,5 +41,3 @@ const Home = () => {
     </Space>
   )
 }
-
-export default Home
