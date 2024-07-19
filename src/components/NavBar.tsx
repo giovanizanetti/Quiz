@@ -2,7 +2,7 @@ import { Layout } from 'antd'
 
 const { Header } = Layout
 
-export const NavBar = () => {
+export const NavBar: React.FC = () => {
   return (
     <Layout>
       <Header style={{ position: 'fixed', zIndex: 1, width: '100%', top: 0 }}>

@@ -3,8 +3,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from './views/Home'
 import { NotFound } from './components/NotFound'
 import { NavBar } from './components/NavBar'
+import { Question } from './views/Question'
 
-function App() {
+const App: React.FC = () => {
   return (
     <>
       <NavBar />
@@ -13,7 +14,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="quiz/question/:questionNumber"
-            element={<span>QuaestionNumber</span>}
+            element={<Question />}
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
