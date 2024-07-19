@@ -41,10 +41,10 @@ export const fetchQuestions: TFetchQuestionsAction = createAsyncThunk(
 
     const amount =
       difficulty == LEVEL.easy ? 5 : difficulty == LEVEL.medium ? 10 : 15
-    let url = `${OPEN_DB_BASE_URL}/api.php?amount=${amount}&category=${category}`
+    let url = `${OPEN_DB_BASE_URL}/api.php?amount=${amount}&category=${category}&`
 
     if (type) {
-      url += `type=${type}`
+      url += `type=${type}&`
     }
 
     const response = await fetch(url, {
