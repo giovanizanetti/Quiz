@@ -4,6 +4,11 @@ export const LEVEL = {
   hard: 'hard',
 } as const
 
+export const QUESTION_TYPE = {
+  boolean: 'boolean',
+  multiple: 'multiple',
+} as const
+
 export const LANGUAGE = {
   en: 'en',
   pt: 'pt',

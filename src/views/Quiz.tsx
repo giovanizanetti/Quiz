@@ -1,12 +1,13 @@
 import { Space } from 'antd'
 import { UtilCentered } from '../components/UtilCentered'
-import { Question } from '../components/Question'
+import { QuestionList } from '../components/QuestionList'
+// import { Question } from '../components/QuestionList'
 
 export const Quiz = () => {
   
   return (
     <UtilCentered>
-       <Question />
+       <QuestionList />
     </UtilCentered>
   )
 }

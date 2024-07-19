@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { LEVEL } from '../constants'
+import { LEVEL, QUESTION_TYPE } from '../constants'
 import { ISelectorOption } from '../components/UtilSelector'
 
 export type TLevel = (typeof LEVEL)[keyof typeof LEVEL]
 
-interface IQuestion {
-  type: 'multiple' | 'boolean'
+export interface IQuestion {
+  type: typeof QUESTION_TYPE
   category: string
   question: string
   correct_answer: string
@@ -51,5 +51,6 @@ const quizSlice = createSlice({
   },
 })
 
-export const { selectLevel, resetQuiz, selectCategory } = quizSlice.actions
+export const { selectLevel, resetQuiz, selectCategory } =
+  quizSlice.actions
 export default quizSlice.reducer
