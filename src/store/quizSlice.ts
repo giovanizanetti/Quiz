@@ -3,9 +3,10 @@ import { B_POINTS, LEVEL, MC_POINTS, QUESTION_TYPE } from '../constants'
 import { ISelectorOption } from '../components/UtilSelector'
 
 export type TLevel = (typeof LEVEL)[keyof typeof LEVEL]
+export type Ttype = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE]
 
 export interface IQuestion {
-  type: typeof QUESTION_TYPE
+  type: Ttype
   category: string
   question: string
   correct_answer: string
@@ -61,13 +62,19 @@ const quizSlice = createSlice({
       return { ...state, category }
     },
     resetQuiz: () => initialState,
-    submitAnswer: (state, { payload }) => {
-      const isCorrect = payload == state.currentQuestion?.correct_answer
 
-      console.log(payload, 'action.payload')
-      console.log(state, 'state')
+    submitAnswer: (state, { payload }) => {
+      const { currentQuestion } = state
+      const isCorrect =
+        payload.toLowerCase() == currentQuestion?.correct_answer.toLowerCase()
+      console.log('IS CORRECT:', isCorrect)
       if (isCorrect) {
-        console.log('CORRECT', state)
+        const points =
+          currentQuestion?.type == QUESTION_TYPE.boolean
+            ? (state.points + 5)
+            : (state.points + 10)
+
+        return { ...state, points }
       }
     },
   },

@@ -32,7 +32,7 @@ export const QuestionList = () => {
     currentQuestion.correct_answer,
   ])
 
-  useEffect(() => {
+  useEffect(() => {//TODO: FIX those to run once
     if (currentQuestion) {
       dispatch(setCurrentQuestion(currentQuestion))
     }
@@ -67,7 +67,7 @@ export const QuestionList = () => {
 
   const handleSubmit = () => {
     if (!answer) console.warn('Not possible to submit. No answer was given.')
-    dispatch(submitAnswer(currentQuestion))
+    dispatch(submitAnswer(answer))
     navigate(`/quiz/question/${Number(questionNumber) + 1}`, { replace: true })
   }
 
