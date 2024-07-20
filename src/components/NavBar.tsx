@@ -2,6 +2,7 @@ import { Layout } from 'antd'
 import { useSelector } from 'react-redux'
 import { IRootState } from '../store'
 import { getQuestionsCount } from '../helpers/quiz'
+import Timer from './Timer'
 
 const { Header } = Layout
 
@@ -29,12 +30,15 @@ export const NavBar: React.FC = () => {
           style={{
             float: 'left',
             fontSize: '20px',
-            marginRight: '20px',
+            width:'50%'
           }}
         >
           MyQuiz
         </div>
-        {isAnswering && <span style={{ float: 'right' }}>{counter}</span>}
+        <span>
+          <Timer initialSeconds={60} />
+          {isAnswering && <span style={{ float: 'right' }}>{counter}</span>}
+        </span>
       </Header>
     </Layout>
   )
