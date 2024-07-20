@@ -12,7 +12,7 @@ const App: React.FC = () => {
       <NavBar />
       <BrowserRouter>
         <Routes>
-          <Route  path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="quiz/question/:questionNumber" element={<Quiz />} />
           <Route path="quiz/results" element={<Results />} />
           <Route path="*" element={<NotFound />} />
