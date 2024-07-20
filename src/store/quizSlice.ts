@@ -17,8 +17,8 @@ export interface IQuizState {
   level: TLevel
   category: { id: number; name: string }
   currentQuestion: IQuestion | null
-  correctQuestions: IQuestion[]
-  incorrectQuestions: IQuestion[]
+  correctQuestionsCount: number
+  incorrectQuestionsCount: number
   timer: null | number
   points: number
   questionNumber: number | null
@@ -31,8 +31,8 @@ const initialState: IQuizState = {
     name: 'General Knowledge',
   },
   currentQuestion: null,
-  correctQuestions: [],
-  incorrectQuestions: [],
+  correctQuestionsCount: 0,
+  incorrectQuestionsCount: 0,
   timer: null,
   points: 0,
   questionNumber: null,
@@ -42,12 +42,15 @@ const quizSlice = createSlice({
   name: 'quiz',
   initialState,
   reducers: {
+    setQuestionNumber: (state, { payload }) => {
+      const questionNumber = payload
+      return { ...state, questionNumber }
+    },
     selectLevel: (state, { payload }) => {
       const level = payload
       return { ...state, level }
     },
     setCurrentQuestion: (state, { payload }) => {
-      console.log('FROM SET CURRENT QUESTION', payload)
       const currentQuestion = payload
       return { ...state, currentQuestion }
     },
@@ -60,7 +63,7 @@ const quizSlice = createSlice({
     resetQuiz: () => initialState,
     submitAnswer: (state, { payload }) => {
       const isCorrect = payload == state.currentQuestion?.correct_answer
-      
+
       console.log(payload, 'action.payload')
       console.log(state, 'state')
       if (isCorrect) {
@@ -76,5 +79,6 @@ export const {
   selectCategory,
   submitAnswer,
   setCurrentQuestion,
+  setQuestionNumber,
 } = quizSlice.actions
 export default quizSlice.reducer

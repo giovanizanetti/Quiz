@@ -4,7 +4,7 @@ import { IRootState, TAppDispatch } from '../store'
 import { useEffectOnce } from '../helpers/react'
 import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
 import { useNavigate, useParams } from 'react-router-dom'
-import { IQuestion, setCurrentQuestion, submitAnswer } from '../store/quizSlice'
+import { IQuestion, setCurrentQuestion, setQuestionNumber, submitAnswer } from '../store/quizSlice'
 import { UtilCentered } from './UtilCentered'
 import { useEffect, useState } from 'react'
 import { AntDesignOutlined } from '@ant-design/icons'
@@ -28,16 +28,19 @@ export const QuestionList = () => {
   const currentQuestion: IQuestion | null =
     questions?.data?.[questionIndex] || null
 
-
   const options = currentQuestion?.incorrect_answers.concat([
     currentQuestion.correct_answer,
   ])
 
   useEffect(() => {
-    if(currentQuestion) {
+    if (currentQuestion) {
       dispatch(setCurrentQuestion(currentQuestion))
     }
-  },[currentQuestion])
+
+    if (questionNumber) {
+      dispatch(setQuestionNumber(questionNumber))
+    }
+  }, [currentQuestion, questionNumber])
 
   const getCardStyle = (item: string, index: number) => {
     const hovered = index == hoverIndex
@@ -63,11 +66,9 @@ export const QuestionList = () => {
   }
 
   const handleSubmit = () => {
-    if(!answer) console.warn('Not possible to submit. No answer was given.')
-  
+    if (!answer) console.warn('Not possible to submit. No answer was given.')
     dispatch(submitAnswer(currentQuestion))
     navigate(`/quiz/question/${Number(questionNumber) + 1}`, { replace: true })
-    console.log('params', params)
   }
 
   return (
