@@ -4,12 +4,17 @@ import { IRootState, TAppDispatch } from '../store'
 import { useEffectOnce } from '../helpers/react'
 import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
 import { useNavigate, useParams } from 'react-router-dom'
-import { IQuestion, setCurrentQuestion, setQuestionNumber, submitAnswer } from '../store/quizSlice'
+import {
+  IQuestion,
+  setCurrentQuestion,
+  setQuestionNumber,
+  submitAnswer,
+} from '../store/quizSlice'
 import { UtilCentered } from './UtilCentered'
 import { useEffect, useState } from 'react'
 import { AntDesignOutlined } from '@ant-design/icons'
 
-export const QuestionList = () => {
+export const AnswerQuestion = () => {
   const navigate = useNavigate()
   const params = useParams()
   const dispatch: TAppDispatch = useDispatch()
@@ -32,7 +37,8 @@ export const QuestionList = () => {
     currentQuestion.correct_answer,
   ])
 
-  useEffect(() => {//TODO: FIX those to run once
+  useEffect(() => {
+    //TODO: FIX those to run once
     if (currentQuestion) {
       dispatch(setCurrentQuestion(currentQuestion))
     }
@@ -68,7 +74,13 @@ export const QuestionList = () => {
   const handleSubmit = () => {
     if (!answer) console.warn('Not possible to submit. No answer was given.')
     dispatch(submitAnswer(answer))
-    navigate(`/quiz/question/${Number(questionNumber) + 1}`, { replace: true })
+    const isLastQuestion = questionNumber == questions.data.length
+    setAnswer(null)
+    if (isLastQuestion) navigate(`/quiz/results`, { replace: true })
+    else
+      navigate(`/quiz/question/${Number(questionNumber) + 1}`, {
+        replace: true,
+      })
   }
 
   return (

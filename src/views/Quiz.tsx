@@ -1,11 +1,11 @@
 import { UtilCentered } from '../components/UtilCentered'
-import { QuestionList } from '../components/QuestionList'
-// import { Question } from '../components/QuestionList'
+import { AnswerQuestion } from '../components/AnswerQuestion'
+// import { Question } from '../components/AnswerQuestion'
 
 export const Quiz = () => {
   return (
     <UtilCentered>
-      <QuestionList />
+      <AnswerQuestion />
     </UtilCentered>
   )
 }
