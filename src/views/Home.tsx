@@ -1,10 +1,12 @@
-import LevelSelect from '../components/LevelSelect'
+import { LevelSelect } from '../components/LevelSelect'
 import CategorySelect from '../components/CategorySelect'
 import { Button, Space } from 'antd'
 import { AntDesignOutlined } from '@ant-design/icons'
 import { useTranslation } from 'react-i18next'
 import { capitalize } from '../helpers/strings'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setCurrentQuestion } from '../store/quizSlice'
 
 const styleCenter = {
   display: 'flex',
@@ -12,11 +14,17 @@ const styleCenter = {
   width: '100%',
 }
 
-const Home = () => {
+export const Home = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+
   const buttonLabel = capitalize(t('start-type', { type: t('quiz') }))
+
   const goToQuiz = () => navigate('quiz/question/1')
+
+  const onClick = () => {
+    goToQuiz()
+  }
 
   return (
     <Space
@@ -30,7 +38,7 @@ const Home = () => {
         <CategorySelect />
       </Space>
       <Button
-        onClick={goToQuiz}
+        onClick={onClick}
         style={{ margin: '2rem' }}
         type="primary"
         size="large"
@@ -41,5 +49,3 @@ const Home = () => {
     </Space>
   )
 }
-
-export default Home

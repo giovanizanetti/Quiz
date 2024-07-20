@@ -1,11 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { LEVEL } from '../constants'
+import { createSlice, current } from '@reduxjs/toolkit'
+import { B_POINTS, LEVEL, MC_POINTS, QUESTION_TYPE } from '../constants'
 import { ISelectorOption } from '../components/UtilSelector'
 
 export type TLevel = (typeof LEVEL)[keyof typeof LEVEL]
+export type Ttype = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE]
 
-interface IQuestion {
-  type: 'multiple' | 'boolean'
+export interface IQuestion {
+  type: Ttype
   category: string
   question: string
   correct_answer: string
@@ -17,9 +18,12 @@ export interface IQuizState {
   level: TLevel
   category: { id: number; name: string }
   currentQuestion: IQuestion | null
-  correctQuestions: IQuestion[] | null
-  incorrectQuestions: IQuestion[] | null
+  correctQuestionsCount: number
+  incorrectQuestionsCount: number
   timer: null | number
+  points: number
+  questionNumber: number | null
+  questionsCount: 0
 }
 
 const initialState: IQuizState = {
@@ -29,18 +33,33 @@ const initialState: IQuizState = {
     name: 'General Knowledge',
   },
   currentQuestion: null,
-  correctQuestions: null,
-  incorrectQuestions: null,
+  correctQuestionsCount: 0,
+  incorrectQuestionsCount: 0,
   timer: null,
+  points: 0,
+  questionNumber: null,
+  questionsCount: 0
 }
 
 const quizSlice = createSlice({
   name: 'quiz',
   initialState,
   reducers: {
-    selectLevel: (state, action) => {
-      const level = action.payload
+    setQuestionNumber: (state, { payload }) => {
+      const questionNumber = payload
+      return { ...state, questionNumber }
+    },
+    setQuestionCount: (state, {payload}) => {
+      const questionsCount = payload
+      return { ...state ,questionsCount}
+    },
+    selectLevel: (state, { payload }) => {
+      const level = payload
       return { ...state, level }
+    },
+    setCurrentQuestion: (state, { payload }) => {
+      const currentQuestion = payload
+      return { ...state, currentQuestion }
     },
     selectCategory: (state, { payload }) => {
       const { value, label } = payload as ISelectorOption
@@ -48,8 +67,29 @@ const quizSlice = createSlice({
       return { ...state, category }
     },
     resetQuiz: () => initialState,
+
+    submitAnswer: (state, { payload }) => {
+      const { currentQuestion } = state
+      const isCorrect = payload == currentQuestion?.correct_answer
+
+      if (isCorrect) {
+        const points =
+          currentQuestion?.type == QUESTION_TYPE.boolean
+            ? state.points + 5
+            : state.points + 10
+
+        return { ...state, points }
+      }
+    },
   },
 })
 
-export const { selectLevel, resetQuiz, selectCategory } = quizSlice.actions
+export const {
+  selectLevel,
+  resetQuiz,
+  selectCategory,
+  submitAnswer,
+  setCurrentQuestion,
+  setQuestionNumber,
+} = quizSlice.actions
 export default quizSlice.reducer

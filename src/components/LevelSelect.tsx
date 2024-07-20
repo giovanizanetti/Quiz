@@ -4,12 +4,12 @@ import { LEVEL } from '../constants'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { TLevel, selectLevel } from '../store/quizSlice'
-import UtilSelector, { ISelectorOption } from './UtilSelector'
+import { UtilSelector, ISelectorOption } from './UtilSelector'
 
-const LevelSelect: React.FC = () => {
+export const LevelSelect: React.FC = () => {
   const { t } = useTranslation()
   const dispatch: TAppDispatch = useDispatch()
-  
+
   const level: TLevel = useSelector((state: IRootState) => state.quiz.level)
 
   const items = Object.values(LEVEL).map((item) => ({
@@ -28,4 +28,3 @@ const LevelSelect: React.FC = () => {
     ></UtilSelector>
   )
 }
-export default LevelSelect

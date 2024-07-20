@@ -9,9 +9,9 @@ import {
 } from '../store/categoriesSlice'
 import { useEffectOnce } from '../helpers/react'
 import { selectCategory } from '../store/quizSlice'
-import UtilSelector, { ISelectorOption } from './UtilSelector'
+import { UtilSelector, ISelectorOption } from './UtilSelector'
 
-const CategorySelect: React.FC = () => {
+export const CategorySelect: React.FC = () => {
   const dispatch: TAppDispatch = useDispatch()
 
   const categories = useSelector(
