@@ -11,19 +11,20 @@ export interface IQuestion {
   question: string
   correct_answer: string
   incorrect_answers: string[]
-  difficulty: typeof LEVEL
+  difficulty: TLevel
 }
 
 export interface IQuizState {
   level: TLevel
   category: { id: number; name: string }
   currentQuestion: IQuestion | null
-  correctQuestionsCount: number
-  incorrectQuestionsCount: number
+  correctAnswersCount: number
+  questionsCorrectlyAnswered: IQuestion[]
+  questionsIncorrectlyAnswered: IQuestion[]
+  incorrectAnswersCount: number
   timer: null | number
   points: number
   questionNumber: number | null
-  questionsCount: 0
 }
 
 const initialState: IQuizState = {
@@ -33,12 +34,13 @@ const initialState: IQuizState = {
     name: 'General Knowledge',
   },
   currentQuestion: null,
-  correctQuestionsCount: 0,
-  incorrectQuestionsCount: 0,
+  correctAnswersCount: 0,
+  incorrectAnswersCount: 0,
+  questionsCorrectlyAnswered: [],
+  questionsIncorrectlyAnswered: [],
   timer: null,
   points: 0,
   questionNumber: null,
-  questionsCount: 0
 }
 
 const quizSlice = createSlice({
@@ -49,9 +51,9 @@ const quizSlice = createSlice({
       const questionNumber = payload
       return { ...state, questionNumber }
     },
-    setQuestionCount: (state, {payload}) => {
+    setQuestionCount: (state, { payload }) => {
       const questionsCount = payload
-      return { ...state ,questionsCount}
+      return { ...state, questionsCount }
     },
     selectLevel: (state, { payload }) => {
       const level = payload
@@ -73,12 +75,33 @@ const quizSlice = createSlice({
       const isCorrect = payload == currentQuestion?.correct_answer
 
       if (isCorrect) {
+        console.log('ISCORRECT')
+        const correctAnswersCount = state.correctAnswersCount + 1
+        
+        const questionsCorrectlyAnswered = [
+          ...state.questionsCorrectlyAnswered,
+          currentQuestion,
+        ]
         const points =
           currentQuestion?.type == QUESTION_TYPE.boolean
             ? state.points + 5
             : state.points + 10
 
-        return { ...state, points }
+        return {
+          ...state,
+          points,
+          correctAnswersCount,
+          questionsCorrectlyAnswered,
+        }
+      } else {
+
+        console.log('INCORRERCT')
+        const incorrectAnswersCount = state.incorrectAnswersCount + 1
+        const questionsIncorrectlyAnswered = [
+          ...state.questionsIncorrectlyAnswered,
+          currentQuestion,
+        ]
+        return { ...state, incorrectAnswersCount, questionsIncorrectlyAnswered }
       }
     },
   },
