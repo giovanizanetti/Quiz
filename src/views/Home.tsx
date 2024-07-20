@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { capitalize } from '../helpers/strings'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { setCurrentQuestion } from '../store/quizSlice'
 
 const styleCenter = {
   display: 'flex',
@@ -17,6 +16,7 @@ const styleCenter = {
 export const Home = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const buttonLabel = capitalize(t('start-type', { type: t('quiz') }))
 

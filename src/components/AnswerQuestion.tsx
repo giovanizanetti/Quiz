@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import {
   IQuestion,
   setCurrentQuestion,
+  setFinished,
   setQuestionNumber,
   submitAnswer,
 } from '../store/quizSlice'
@@ -76,11 +77,14 @@ export const AnswerQuestion = () => {
     dispatch(submitAnswer(answer))
     const isLastQuestion = questionNumber == questions.data.length
     setAnswer(null)
-    if (isLastQuestion) navigate(`/quiz/results`, { replace: true })
-    else
+    if (isLastQuestion) {
+      dispatch(setFinished(true))
+      navigate(`/quiz/results`, { replace: true })
+    } else {
       navigate(`/quiz/question/${Number(questionNumber) + 1}`, {
         replace: true,
       })
+    }
   }
 
   return (

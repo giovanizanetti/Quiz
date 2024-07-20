@@ -11,12 +11,7 @@ export const Results: React.FC = () => {
     (state: IRootState) => state.quiz.incorrectAnswersCount
   )
 
-  const {
-    currentQuestion,
-    correctAnswersCount,
-    questionsIncorrectlyAnswered,
-    questionsCorrectlyAnswered,
-  } = quizState
+  const { correctAnswersCount, questionsIncorrectlyAnswered } = quizState
 
   const points = <h2>Points: {quizState.points}</h2>
 
