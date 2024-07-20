@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { IRootState } from '../store'
-import { Button, Card, List, Space} from 'antd'
+import { Button, Card, List, Space } from 'antd'
 import { useEffect, useState } from 'react'
 import { UtilCentered } from '../components/UtilCentered'
 
@@ -11,12 +11,7 @@ export const Results: React.FC = () => {
     (state: IRootState) => state.quiz.incorrectAnswersCount
   )
 
-  const {
-    currentQuestion,
-    correctAnswersCount,
-    questionsIncorrectlyAnswered,
-    questionsCorrectlyAnswered,
-  } = quizState
+  const { correctAnswersCount, questionsIncorrectlyAnswered } = quizState
 
   const points = <h2>Points: {quizState.points}</h2>
 
@@ -27,10 +22,12 @@ export const Results: React.FC = () => {
 
   if (incorrectAnswersCount < 1) {
     return (
-      <UtilCentered>
-        <p>Well Done you've got it all right?</p>
-        {points}
-      </UtilCentered>
+      <section>
+        <UtilCentered>
+          <p>Well Done you've got it all right?</p>
+          {points}
+        </UtilCentered>
+      </section>
     )
   } else {
     const dataSource = questionsIncorrectlyAnswered
@@ -48,14 +45,13 @@ export const Results: React.FC = () => {
         fontSize: 18,
         backgroundColor: hovered ? red : undefined,
         color: hovered ? 'white' : undefined,
-        fontWeight: hovered ? 600 : 500,
         borderWidth: 3,
         borderColor: hovered ? red : undefined,
       }
     }
 
     return (
-      <section style={{ marginTop: '-12rem', textAlign: 'left' }}>
+      <section style={{ marginTop: '5rem', marginBottom: '5rem' }}>
         <UtilCentered>
           {points}
           {correctCounter}
