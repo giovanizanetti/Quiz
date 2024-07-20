@@ -74,9 +74,8 @@ export const AnswerQuestion = () => {
   const handleSubmit = () => {
     if (!answer) console.warn('Not possible to submit. No answer was given.')
     dispatch(submitAnswer(answer))
-
     const isLastQuestion = questionNumber == questions.data.length
-
+    setAnswer(null)
     if (isLastQuestion) navigate(`/quiz/results`, { replace: true })
     else
       navigate(`/quiz/question/${Number(questionNumber) + 1}`, {
