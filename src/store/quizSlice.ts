@@ -23,6 +23,7 @@ export interface IQuizState {
   timer: null | number
   points: number
   questionNumber: number | null
+  questionsCount: 0
 }
 
 const initialState: IQuizState = {
@@ -37,6 +38,7 @@ const initialState: IQuizState = {
   timer: null,
   points: 0,
   questionNumber: null,
+  questionsCount: 0
 }
 
 const quizSlice = createSlice({
@@ -46,6 +48,10 @@ const quizSlice = createSlice({
     setQuestionNumber: (state, { payload }) => {
       const questionNumber = payload
       return { ...state, questionNumber }
+    },
+    setQuestionCount: (state, {payload}) => {
+      const questionsCount = payload
+      return { ...state ,questionsCount}
     },
     selectLevel: (state, { payload }) => {
       const level = payload
@@ -57,7 +63,6 @@ const quizSlice = createSlice({
     },
     selectCategory: (state, { payload }) => {
       const { value, label } = payload as ISelectorOption
-      console.log(state, 'state')
       const category = { id: value, name: label }
       return { ...state, category }
     },
@@ -65,14 +70,13 @@ const quizSlice = createSlice({
 
     submitAnswer: (state, { payload }) => {
       const { currentQuestion } = state
-      const isCorrect =
-        payload.toLowerCase() == currentQuestion?.correct_answer.toLowerCase()
-      console.log('IS CORRECT:', isCorrect)
+      const isCorrect = payload == currentQuestion?.correct_answer
+
       if (isCorrect) {
         const points =
           currentQuestion?.type == QUESTION_TYPE.boolean
-            ? (state.points + 5)
-            : (state.points + 10)
+            ? state.points + 5
+            : state.points + 10
 
         return { ...state, points }
       }

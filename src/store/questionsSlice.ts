@@ -3,6 +3,7 @@ import { LEVEL, OPEN_DB_BASE_URL, QUESTION_TYPE } from '../constants'
 import i18n from '../config/i18n'
 import { IRootState } from '.'
 import { IQuestion } from './quizSlice'
+import { getQuestionsCount } from '../helpers/quiz'
 
 export type TQuestionType = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE]
 
@@ -38,8 +39,8 @@ export const fetchQuestions: TFetchQuestionsAction = createAsyncThunk(
         ? QUESTION_TYPE.multiple
         : null
 
-    const amount =
-      difficulty == LEVEL.easy ? 5 : difficulty == LEVEL.medium ? 10 : 15
+    const amount = getQuestionsCount(difficulty)
+    
     let url = `${OPEN_DB_BASE_URL}/api.php?amount=${amount}&category=${category}&`
 
     if (type) {
