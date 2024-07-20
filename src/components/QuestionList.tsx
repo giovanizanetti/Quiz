@@ -1,54 +1,73 @@
-import { Card, Space } from 'antd'
+import { Button, Card, Space } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { useEffectOnce } from '../helpers/react'
 import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
-import { useRoutes, useParams } from 'react-router-dom'
-import { IQuestion } from '../store/quizSlice'
+import { useNavigate, useParams } from 'react-router-dom'
+import { IQuestion, setCurrentQuestion, submitAnswer } from '../store/quizSlice'
 import { UtilCentered } from './UtilCentered'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { AntDesignOutlined } from '@ant-design/icons'
 
 export const QuestionList = () => {
+  const navigate = useNavigate()
+  const params = useParams()
   const dispatch: TAppDispatch = useDispatch()
 
-  const selectAnswer = (value: string) => console.log(value)
+  useEffectOnce(() => {
+    dispatch(fetchQuestions() as unknown as TFetchQuestionsAction)
+  })
 
   const [answer, setAnswer] = useState<string | null>(null)
   const [hoverIndex, setHoverIndex] = useState<null | number>(null)
 
-  const questionNumber = useParams().questionNumber
+  const questionNumber = params.questionNumber
   const questionIndex = Number(questionNumber) - 1
   const questions = useSelector((state: IRootState) => state.questions)
 
   const currentQuestion: IQuestion | null =
     questions?.data?.[questionIndex] || null
 
+
   const options = currentQuestion?.incorrect_answers.concat([
     currentQuestion.correct_answer,
   ])
 
-  useEffectOnce(() => {
-    console.log(options, 'Options')
-    dispatch(fetchQuestions() as unknown as TFetchQuestionsAction)
-  })
+  useEffect(() => {
+    if(currentQuestion) {
+      dispatch(setCurrentQuestion(currentQuestion))
+    }
+  },[currentQuestion])
 
   const getCardStyle = (item: string, index: number) => {
     const hovered = index == hoverIndex
     const answered = item == answer
-
+    const notAsweredHovered = hovered && !answered
     const red = '#FC4D3C'
 
     return {
       minWidth: 300,
-      paddingLeft: '10px',
-      paddingRight: '10px',
+      paddingLeft: 10,
+      paddingRight: 10,
       fontSize: 18,
-      backgroundColor: hovered ? red : answered ? 'transparent' : undefined,
+      backgroundColor: notAsweredHovered
+        ? red
+        : answered
+        ? 'transparent'
+        : undefined,
       color: hovered || answered ? 'white' : undefined,
-      fontWeight: hovered ? 600 : 500,
-      borderWidth: '3px',
-      borderColor: hovered ? red : undefined
+      fontWeight: notAsweredHovered ? 600 : 500,
+      borderWidth: 3,
+      borderColor: notAsweredHovered ? red : undefined,
     }
+  }
+
+  const handleSubmit = () => {
+    if(!answer) console.warn('Not possible to submit. No answer was given.')
+  
+    dispatch(submitAnswer(currentQuestion))
+    navigate(`/quiz/question/${Number(questionNumber) + 1}`, { replace: true })
+    console.log('params', params)
   }
 
   return (
@@ -74,6 +93,17 @@ export const QuestionList = () => {
             </Card>
           ))}
         </Space>
+
+        <Button
+          disabled={!answer}
+          onClick={() => handleSubmit()}
+          style={{ margin: '2rem' }}
+          type="primary"
+          size="large"
+          icon={<AntDesignOutlined />}
+        >
+          Submit
+        </Button>
       </UtilCentered>
     </section>
   )

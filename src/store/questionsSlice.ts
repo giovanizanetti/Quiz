@@ -16,7 +16,6 @@ interface IQuestionsState {
   questions: IInitialState
 }
 
-
 interface IInitialState {
   loading: boolean
   errorMessaage: string
@@ -50,7 +49,7 @@ export const fetchQuestions: TFetchQuestionsAction = createAsyncThunk(
     const response = await fetch(url, {
       method: 'GET',
     })
-    
+
     const data = await response.json()
     return data.results as IQuestion[]
   }

@@ -3,10 +3,9 @@ import { QuestionList } from '../components/QuestionList'
 // import { Question } from '../components/QuestionList'
 
 export const Quiz = () => {
-  
   return (
     <UtilCentered>
-       <QuestionList />
+      <QuestionList />
     </UtilCentered>
   )
 }
