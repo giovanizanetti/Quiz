@@ -28,7 +28,7 @@ The default level is easy and the default category is General Knowledge
 
 ### Features
 
-*By starting the quiz, the user is redirected to a `/quiz/question{question_number}`.
+*By starting the quiz, the user is redirected to `/quiz/question{question_number}`.
 
 * After the last question, the user is presented with the results view containing the summary of points, and correct and incorrect count.
 
@@ -36,7 +36,7 @@ The default level is easy and the default category is General Knowledge
 
 * Each question has a timer according to the options above 👆🏼
 
-The user can **reset** the quiz from any question.
+* The user can **reset** the quiz from any question.
 
 ### Technologies
 * React 
