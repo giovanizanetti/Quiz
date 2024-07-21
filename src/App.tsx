@@ -9,8 +9,8 @@ import { Results } from './views/Results'
 const App: React.FC = () => {
   return (
     <>
-      <NavBar />
       <BrowserRouter>
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="quiz/question/:questionNumber" element={<Quiz />} />

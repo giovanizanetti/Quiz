@@ -25,6 +25,7 @@ export interface IQuizState {
   timer: null | number
   points: number
   questionNumber: number | null
+  isAnswering: boolean
   finished: boolean
 }
 
@@ -42,6 +43,7 @@ const initialState: IQuizState = {
   timer: null,
   points: 0,
   questionNumber: null,
+  isAnswering: false,
   finished: false,
 }
 
@@ -62,8 +64,9 @@ const quizSlice = createSlice({
       return { ...state, level }
     },
     setCurrentQuestion: (state, { payload }) => {
+      const isAnswering = true
       const currentQuestion = payload
-      return { ...state, currentQuestion }
+      return { ...state, currentQuestion, isAnswering }
     },
     selectCategory: (state, { payload }) => {
       const { value, label } = payload as ISelectorOption
@@ -72,9 +75,12 @@ const quizSlice = createSlice({
     },
     setFinished: (state) => {
       const finished = true
-      return { ...state, finished }
+      const isAnswering = false
+      return { ...state, finished, isAnswering }
     },
-    resetQuiz: (state) => initialState,
+    resetQuiz: (state) => {
+      return {...initialState}
+    },
     submitAnswer: (state, { payload }) => {
       const { currentQuestion } = state
       const isCorrect = payload == currentQuestion?.correct_answer
