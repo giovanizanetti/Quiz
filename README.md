@@ -1,34 +1,68 @@
-# QuizApp
-=======
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# My Quiz App
 
-Currently, two official plugins are available:
+This quiz application was made as an assignment for a frontend job position.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Description
 
-## Expanding the ESLint configuration
+The user is presented with a home page where the they can select a category and the difficulty level before answering the quiz.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The default level is easy and the default category is General Knowledge
 
-- Configure the top-level `parserOptions` property like this:
+* According to the category, the user is presented with one of the settings👇🏻
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+##### EASY
+- 5 questions
+- All question type boolean
+- Timer 15 seconds
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
->>>>>>> 897cdda (Initial commit)
->>>>>>> 636ac41 (start project)
+##### MEDIUM
+- 10 questions
+- Mixed question types
+- Timer 10 seconds
+
+#### HARD
+- 15 questions
+- Type multiple
+- Timer 5 seconds
+
+### Features
+
+*By starting the quiz, the user is redirected to a `/quiz/question{question_number}`.
+
+* After the last question, the user is presented with the results view containing the summary of points, and correct and incorrect count.
+
+* The user can **retry** the incorrect questions. The user is redirected to `/quiz/question/rety{question_number}`
+
+* Each question has a timer according to the options above 👆🏼
+
+The user can **reset** the quiz from any question.
+
+### Technologies
+* React 
+* Typescript
+* Vite
+* ReactReduxToolkit 
+* Antdesign
+* I18n 
+* Vitest
+
+### Run the application
+
+* Fetch the project `https://github.com/giovanizanetti/Quiz.git`
+* run `yarn` from your terminal to install all the dependencies
+* run 'yarn run dev to start the project
+* run 'yarn test and start the tests
+
+### Check the Deployed version here 👇🏻
+xxxxxxxxxxxxx
+
+
+
+
+
+
+
+
+
+
