@@ -1,12 +1,11 @@
-import { Button, Dropdown, Layout, Menu, Space } from 'antd'
+import { Layout } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { getInitialTimer, getQuestionsCount } from '../helpers/quiz'
 import { Timer } from './Timer'
 import { useNavigate } from 'react-router-dom'
 import { setIncorrectQuestion } from '../store/quizSlice'
-import { LANGUAGE, RED } from '../constants'
-import { UtilSelector } from './UtilSelector'
+import { RED } from '../constants'
 import LanguageSelector from './LanguageSelector'
 
 const { Header } = Layout
@@ -18,7 +17,15 @@ export const NavBar: React.FC = () => {
   const questions = useSelector((state: IRootState) => state.questions.data)
   const isAnswering = useSelector((state: IRootState) => state.quiz.isAnswering)
   const questionNumber = quizState.questionNumber
+  const level = quizState.level
 
+  const isRetrying = useSelector((state: IRootState) => state.quiz.retrying)
+
+  const counter = `${questionNumber} / ${
+    !isRetrying
+      ? getQuestionsCount(level)
+      : quizState.questionsIncorrectlyAnswered?.length
+  }`
   const goToQuiz = () => navigate(`quiz/question/${Number(questionNumber) + 1}`)
   const handleTimeOut = () => {
     const isLastQuestion = Number(questionNumber) == questions.length
@@ -68,6 +75,9 @@ export const NavBar: React.FC = () => {
           )}
         </span>
         <span style={{ float: 'right' }}>
+          {isAnswering && (
+            <span style={{ marginRight: '3rem' }}>{counter}</span>
+          )}
           <LanguageSelector />
         </span>
       </Header>
