@@ -20,13 +20,19 @@ export const Results: React.FC = () => {
 
   const points = <h1>Points: {quizState.points}</h1>
 
-  const correctCounter = <h3>{`Correct count: ${correctAnswersCount}`}<span style={{ fontSize: '2rem', margin:'1rem'}}>😀</span></h3>
-  const incorrectCounter = (
-    <div>
-      <h3>{`Incorrect count : ${incorrectAnswersCount}`}<span style={{ fontSize: '2rem', margin:'1rem'}}>🙁</span></h3>
+  const counter = (
+    <>
+      <h3>
+        {`Correct count: ${correctAnswersCount}`}
+        <span style={{ fontSize: '2rem', margin: '1rem' }}>😀</span>
+      </h3>
+      <h3>
+        {`Incorrect count : ${incorrectAnswersCount}`}
+        <span style={{ fontSize: '2rem', margin: '1rem' }}>🙁</span>
+      </h3>
 
       <UtilButton onClick={() => goToRetry()}>Re-try</UtilButton>
-    </div>
+    </>
   )
 
   const goToRetry = () => {
@@ -39,7 +45,7 @@ export const Results: React.FC = () => {
     return (
       <section>
         <UtilCentered>
-          <p style={{fontSize:'2rem', padding: '1rem'}}>
+          <p style={{ fontSize: '2rem', padding: '1rem' }}>
             Well Done you've got it all right!{' '}
             <span style={{ fontSize: '10rem' }}>🎉</span>
           </p>
@@ -51,9 +57,8 @@ export const Results: React.FC = () => {
     return (
       <section style={{ marginTop: '5rem', marginBottom: '5rem' }}>
         <UtilCentered>
-          {points}
-          {correctCounter}
-          {incorrectCounter}
+            {points}
+            {counter}
         </UtilCentered>
       </section>
     )
