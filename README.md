@@ -51,11 +51,11 @@ The user can **reset** the quiz from any question.
 
 * Fetch the project `https://github.com/giovanizanetti/Quiz.git`
 * run `yarn` from your terminal to install all the dependencies
-* run 'yarn run dev to start the project
-* run 'yarn test and start the tests
+* run `yarn` run dev to start the project
+* run `yarn` test and start the tests
 
 ### Check the Deployed version here 👇🏻
-xxxxxxxxxxxxx
+
 
 
 
