@@ -56,6 +56,8 @@ The user can **reset** the quiz from any question.
 
 ### Check the Deployed version here 👇🏻
 
+https://my-quiz-super-app.netlify.app/
+
 
 
 
