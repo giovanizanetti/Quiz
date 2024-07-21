@@ -52,7 +52,7 @@ export const fetchQuestions: TFetchQuestionsAction = createAsyncThunk(
   }
 )
 
-const initialState: IInitialState = {
+const initialState: IInitialQuestionState = {
   loading: false,
   errorMessaage: '',
   success: false,

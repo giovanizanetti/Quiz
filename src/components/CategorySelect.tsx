@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 
 import {
-  ICategoriesState,
+  IInitialCategoriesState,
   ICategory,
   TFetchCategoryAction,
   fetchCategories,
@@ -15,7 +15,7 @@ export const CategorySelect: React.FC = () => {
   const dispatch: TAppDispatch = useDispatch()
 
   const categories = useSelector(
-    (state: ICategoriesState) => state.categories.data
+    (state: { categories: IInitialCategoriesState }) => state.categories.data
   )
 
   useEffectOnce(() => {

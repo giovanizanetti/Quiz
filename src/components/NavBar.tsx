@@ -1,21 +1,37 @@
 import { Layout } from 'antd'
-import { useSelector } from 'react-redux'
-import { IRootState } from '../store'
+import { useDispatch, useSelector } from 'react-redux'
+import { IRootState, TAppDispatch } from '../store'
 import { getInitialTimer, getQuestionsCount } from '../helpers/quiz'
-import Timer from './Timer'
-import { useState } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { Timer } from './Timer'
+import { useNavigate } from 'react-router-dom'
+import { setIncorrectQuestion } from '../store/quizSlice'
+import { RED } from '../constants'
 
 const { Header } = Layout
 
 export const NavBar: React.FC = () => {
+  const navigate = useNavigate()
+  const dispatch: TAppDispatch = useDispatch()
   const quizState = useSelector((state: IRootState) => state.quiz)
-  // const questions = useSelector((state: IRootState) => state.questions)
+  const questions = useSelector((state: IRootState) => state.questions.data)
   const isAnswering = useSelector((state: IRootState) => state.quiz.isAnswering)
   const questionNumber = quizState.questionNumber
   const level = quizState.level
 
-  const counter = `${questionNumber} / ${getQuestionsCount(level)}`
+  const isRetrying = useSelector((state: IRootState) => state.quiz.retrying)
+
+  const counter = `${questionNumber} / ${!isRetrying  ? getQuestionsCount(level): quizState.questionsIncorrectlyAnswered?.length}`
+  const goToQuiz = () => navigate(`quiz/question/${Number(questionNumber) + 1}`)
+  const handleTimeOut = () => {
+    const isLastQuestion = Number(questionNumber) == questions.length
+
+    if (!isLastQuestion) {
+      goToQuiz()
+      dispatch(() => setIncorrectQuestion(quizState.currentQuestion))
+    } else {
+      navigate(`/quiz/results`, { replace: true })
+    }
+  }
 
   return (
     <Layout>
@@ -27,6 +43,7 @@ export const NavBar: React.FC = () => {
           color: 'white',
           top: 0,
           justifyContent: 'space-around',
+          background: RED
         }}
       >
         <div
@@ -45,6 +62,7 @@ export const NavBar: React.FC = () => {
               {isAnswering && (
                 <Timer
                   initialSeconds={getInitialTimer(quizState.level)}
+                  onTimmedOut={() => handleTimeOut()}
                   key={questionNumber}
                 />
               )}

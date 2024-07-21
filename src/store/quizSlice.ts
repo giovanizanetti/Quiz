@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { LEVEL, QUESTION_TYPE } from '../constants'
 import { ISelectorOption } from '../components/UtilSelector'
-import { retry } from '@reduxjs/toolkit/query'
 
 export type TLevel = (typeof LEVEL)[keyof typeof LEVEL]
 export type Ttype = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE]
@@ -81,8 +80,8 @@ const quizSlice = createSlice({
       const isAnswering = false
       return { ...state, finished, isAnswering }
     },
-    resetQuiz: (state) => {
-      return { ...initialState }
+    resetQuiz: () => {
+      return initialState
     },
     setRetry: (state) => {
       const retrying = true
@@ -124,9 +123,12 @@ const quizSlice = createSlice({
       const { currentQuestion } = state
       const isCorrect = payload == currentQuestion?.correct_answer
 
-
       if (isCorrect) {
-        const questionsIncorrectlyAnswered = [...state.questionsIncorrectlyAnswered.filter(answer => answer.question !== currentQuestion?.question)]
+        const questionsIncorrectlyAnswered = [
+          ...state.questionsIncorrectlyAnswered.filter(
+            (answer) => answer.question !== currentQuestion?.question
+          ),
+        ]
         const correctAnswersCount = state.correctAnswersCount + 1
         const incorrectAnswersCount = state.correctAnswersCount - 1
         const questionsCorrectlyAnswered = [
@@ -145,15 +147,16 @@ const quizSlice = createSlice({
           correctAnswersCount,
           questionsCorrectlyAnswered,
           questionsIncorrectlyAnswered,
-          incorrectAnswersCount
+          incorrectAnswersCount,
         }
       } else {
-
-        
-
-        console.log('IS INCORRECT')
-        return {...state}
+        return { ...state }
       }
+    },
+    setIncorrectQuestion: (state, { payload }) => {
+      const questionsIncorrectlyAnswered = [payload, state.currentQuestion]
+
+      return { ...state, questionsIncorrectlyAnswered }
     },
   },
 })
@@ -168,5 +171,6 @@ export const {
   setQuestionNumber,
   setFinished,
   setRetry,
+  setIncorrectQuestion,
 } = quizSlice.actions
 export default quizSlice.reducer

@@ -18,7 +18,12 @@ interface IProps {
   defaultValue: string
 }
 
-export const UtilSelector: React.FC<IProps> = ({ options, onChange, type, defaultValue }) => {
+export const UtilSelector: React.FC<IProps> = ({
+  options,
+  onChange,
+  type,
+  defaultValue,
+}) => {
   const { t } = useTranslation()
   const tooltip = capitalize(t('select-type', { type }))
 
