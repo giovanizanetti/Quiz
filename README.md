@@ -54,7 +54,7 @@ The user can **reset** the quiz from any question.
 * run `yarn` run dev to start the project
 * run `yarn` test and start the tests
 
-### Check the Deployed version here 👇🏻
+### Check the deployed version here 👇🏻
 
 https://my-quiz-super-app.netlify.app/
 
