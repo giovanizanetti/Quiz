@@ -33,7 +33,7 @@ export const Retry: React.FC = () => {
   const handleSubmit = (answer: string, questionNumber: number) => {
     dispatch(submitRetryAnswer(answer))
 
-    const isLastQuestion = options?.length
+    const isLastQuestion = questions.length == questionNumber
 
     if (isLastQuestion) {
       dispatch(setFinished())
@@ -43,7 +43,6 @@ export const Retry: React.FC = () => {
         replace: true,
       })
     }
-    console.log('HANDLE SUBMIT')
   }
 
   return (

@@ -40,6 +40,7 @@ export const AnswerQuestion: React.FC<{
     }
   }, [questionNumber, questionIndex, questions])
 
+
   const getCardStyle = (item: string, index: number) => {
     const hovered = index == hoverIndex
     const answered = item == answer
