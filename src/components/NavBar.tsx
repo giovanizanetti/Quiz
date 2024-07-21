@@ -2,10 +2,10 @@ import { Layout } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { getInitialTimer, getQuestionsCount } from '../helpers/quiz'
-import Timer from './Timer'
-import { useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Timer } from './Timer'
+import { useNavigate } from 'react-router-dom'
 import { setIncorrectQuestion } from '../store/quizSlice'
+import { RED } from '../constants'
 
 const { Header } = Layout
 
@@ -14,12 +14,13 @@ export const NavBar: React.FC = () => {
   const dispatch: TAppDispatch = useDispatch()
   const quizState = useSelector((state: IRootState) => state.quiz)
   const questions = useSelector((state: IRootState) => state.questions.data)
-  // const questions = useSelector((state: IRootState) => state.questions)
   const isAnswering = useSelector((state: IRootState) => state.quiz.isAnswering)
   const questionNumber = quizState.questionNumber
   const level = quizState.level
 
-  const counter = `${questionNumber} / ${getQuestionsCount(level)}`
+  const isRetrying = useSelector((state: IRootState) => state.quiz.retrying)
+
+  const counter = `${questionNumber} / ${!isRetrying  ? getQuestionsCount(level): quizState.questionsIncorrectlyAnswered?.length}`
   const goToQuiz = () => navigate(`quiz/question/${Number(questionNumber) + 1}`)
   const handleTimeOut = () => {
     const isLastQuestion = Number(questionNumber) == questions.length
@@ -42,6 +43,7 @@ export const NavBar: React.FC = () => {
           color: 'white',
           top: 0,
           justifyContent: 'space-around',
+          background: RED
         }}
       >
         <div

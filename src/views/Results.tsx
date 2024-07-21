@@ -4,33 +4,29 @@ import { Button } from 'antd'
 import { UtilCentered } from '../components/UtilCentered'
 import { useNavigate } from 'react-router-dom'
 import { setRetry } from '../store/quizSlice'
+import { UtilButton } from '../components/UtilButton'
 
 export const Results: React.FC = () => {
   const navigate = useNavigate()
   const dispatch: TAppDispatch = useDispatch()
 
   const quizState = useSelector((state: IRootState) => state.quiz)
-  const incorrectAnswersCount = useSelector(
-    (state: IRootState) => state.quiz.incorrectAnswersCount
+  const incorrectAnswers = useSelector(
+    (state: IRootState) => state.quiz.questionsIncorrectlyAnswered
   )
+
+  const incorrectAnswersCount = incorrectAnswers?.length
 
   const { correctAnswersCount } = quizState
 
-  const points = <h2>Points: {quizState.points}</h2>
+  const points = <h1>Points: {quizState.points}</h1>
 
-  const correctCounter = <div>{`Correct count: ${correctAnswersCount}`}</div>
+  const correctCounter = <h3>{`Correct count: ${correctAnswersCount}`}<span style={{ fontSize: '2rem', margin:'1rem'}}>😀</span></h3>
   const incorrectCounter = (
     <div>
-      {`Incorrect count 🙁: ${incorrectAnswersCount}`}
+      <h3>{`Incorrect count : ${incorrectAnswersCount}`}<span style={{ fontSize: '2rem', margin:'1rem'}}>🙁</span></h3>
 
-      <Button
-        onClick={() => goToRetry()}
-        style={{ margin: '2rem' }}
-        type="primary"
-        size="large"
-      >
-        Re-try
-      </Button>
+      <UtilButton onClick={() => goToRetry()}>Re-try</UtilButton>
     </div>
   )
 
@@ -44,7 +40,10 @@ export const Results: React.FC = () => {
     return (
       <section>
         <UtilCentered>
-          <p>Well Done you've got it all right?</p>
+          <p style={{fontSize:'2rem', padding: '1rem'}}>
+            Well Done you've got it all right!{' '}
+            <span style={{ fontSize: '10rem' }}>🎉</span>
+          </p>
           {points}
         </UtilCentered>
       </section>

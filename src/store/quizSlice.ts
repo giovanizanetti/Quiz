@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { LEVEL, QUESTION_TYPE } from '../constants'
 import { ISelectorOption } from '../components/UtilSelector'
-import { retry } from '@reduxjs/toolkit/query'
 
 export type TLevel = (typeof LEVEL)[keyof typeof LEVEL]
 export type Ttype = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE]
@@ -81,8 +80,8 @@ const quizSlice = createSlice({
       const isAnswering = false
       return { ...state, finished, isAnswering }
     },
-    resetQuiz: (state) => {
-      return { ...initialState }
+    resetQuiz: () => {
+      return initialState
     },
     setRetry: (state) => {
       const retrying = true
@@ -151,15 +150,11 @@ const quizSlice = createSlice({
           incorrectAnswersCount,
         }
       } else {
-        console.log('IS INCORRECT')
         return { ...state }
       }
     },
-    setIncorrectQuestion: (state, {payload}) => {
-      const questionsIncorrectlyAnswered = [
-        payload,
-        state.currentQuestion,
-      ]
+    setIncorrectQuestion: (state, { payload }) => {
+      const questionsIncorrectlyAnswered = [payload, state.currentQuestion]
 
       return { ...state, questionsIncorrectlyAnswered }
     },

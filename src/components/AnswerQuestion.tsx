@@ -1,4 +1,4 @@
-import { Button, Card, Space } from 'antd'
+import { Card, Space } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -10,14 +10,16 @@ import {
 } from '../store/quizSlice'
 import { UtilCentered } from './UtilCentered'
 import { useEffect, useState } from 'react'
-import { AntDesignOutlined, PoundCircleFilled } from '@ant-design/icons'
+import { RED } from '../constants'
+import { UtilButton } from './UtilButton'
 
 export const AnswerQuestion: React.FC<{
   retry?: boolean
   questions: IQuestion[]
   options: string[]
   handleSubmit: (answer: string, questionNumber: number) => void
-}> = ({ retry, questions, handleSubmit, options }) => {
+  questionNumber: number
+}> = ({ questions, handleSubmit, options, questionNumber }) => {
   const navigate = useNavigate()
   const params = useParams()
   const dispatch: TAppDispatch = useDispatch()
@@ -29,7 +31,6 @@ export const AnswerQuestion: React.FC<{
     (state: IRootState) => state.quiz.currentQuestion
   )
 
-  const questionNumber = params.questionNumber
   const questionIndex = Number(questionNumber) - 1
 
   useEffect(() => {
@@ -40,12 +41,10 @@ export const AnswerQuestion: React.FC<{
     }
   }, [questionNumber, questionIndex, questions])
 
-
   const getCardStyle = (item: string, index: number) => {
     const hovered = index == hoverIndex
     const answered = item == answer
     const notAsweredHovered = hovered && !answered
-    const red = '#FC4D3C'
 
     return {
       minWidth: 300,
@@ -53,14 +52,14 @@ export const AnswerQuestion: React.FC<{
       paddingRight: 10,
       fontSize: 18,
       backgroundColor: notAsweredHovered
-        ? red
+        ? RED
         : answered
         ? 'transparent'
         : undefined,
       color: hovered || answered ? 'white' : undefined,
       fontWeight: notAsweredHovered ? 600 : 500,
       borderWidth: 3,
-      borderColor: notAsweredHovered ? red : undefined,
+      borderColor: notAsweredHovered ? RED : undefined,
     }
   }
 
@@ -101,25 +100,14 @@ export const AnswerQuestion: React.FC<{
           ))}
         </Space>
 
-        <Button
-          disabled={!answer}
-          onClick={() => onsubmit()}
-          style={{ margin: '2rem' }}
-          type="primary"
-          size="large"
-          icon={<AntDesignOutlined />}
-        >
-          Submit
-        </Button>
-
-        <Button
-          type="primary"
-          size="large"
-          icon={<PoundCircleFilled />}
-          onClick={handleReset}
-        >
-          Reset quiz
-        </Button>
+        <span>
+          <UtilButton onClick={handleReset}>
+            <span>X </span> Reset quiz
+          </UtilButton>
+          <UtilButton disabled={!answer} onClick={() => onsubmit()}>
+            Submit
+          </UtilButton>
+        </span>
       </UtilCentered>
     </section>
   )

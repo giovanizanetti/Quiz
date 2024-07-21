@@ -4,14 +4,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { useEffectOnce } from '../helpers/react'
 import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
-import { setFinished, submitAnswer } from '../store/quizSlice'
-import { useNavigate } from 'react-router-dom'
+import {
+  setFinished,
+  setQuestionNumber,
+  submitAnswer,
+} from '../store/quizSlice'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 export const Quiz: React.FC = () => {
   const questions = useSelector((state: IRootState) => state.questions.data)
   const dispatch: TAppDispatch = useDispatch()
   const navigate = useNavigate()
+  const params = useParams()
+  const setQuestionNumber = Number(params.questionNumber)
 
   const currentQuestion = useSelector(
     (state: IRootState) => state.quiz.currentQuestion
@@ -48,6 +54,7 @@ export const Quiz: React.FC = () => {
   return (
     <UtilCentered>
       <AnswerQuestion
+        questionNumber={setQuestionNumber}
         questions={questions}
         handleSubmit={handleSubmit}
         options={options}

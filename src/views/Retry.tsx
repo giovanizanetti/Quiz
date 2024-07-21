@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { useEffect, useState } from 'react'
 import { setFinished, submitRetryAnswer } from '../store/quizSlice'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export const Retry: React.FC = () => {
   const dispatch: TAppDispatch = useDispatch()
   const navigate = useNavigate()
+
+  const params = useParams()
+  const questionNumber = Number(params.incorrectQuestionNumber)
 
   const questions = useSelector(
     (state: IRootState) => state.quiz.questionsIncorrectlyAnswered
@@ -49,6 +52,7 @@ export const Retry: React.FC = () => {
     <UtilCentered>
       {options?.length && (
         <AnswerQuestion
+          questionNumber={questionNumber}
           questions={questions}
           handleSubmit={handleSubmit}
           options={options}

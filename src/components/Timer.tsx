@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 
-const Timer: React.FC<{ initialSeconds: number; onTimmedOut: () => void }> = ({
-  initialSeconds,
-  onTimmedOut,
-}) => {
+export const Timer: React.FC<{
+  initialSeconds: number
+  onTimmedOut: () => void
+}> = ({ initialSeconds, onTimmedOut }) => {
   const [seconds, setSeconds] = useState(initialSeconds)
 
   useEffect(() => {
@@ -19,5 +19,3 @@ const Timer: React.FC<{ initialSeconds: number; onTimmedOut: () => void }> = ({
 
   return <span style={{ fontWeight: '600', fontSize: '30px' }}>{seconds}</span>
 }
-
-export default Timer
