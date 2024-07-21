@@ -124,8 +124,6 @@ const quizSlice = createSlice({
       const { currentQuestion } = state
       const isCorrect = payload == currentQuestion?.correct_answer
 
-      console.log('CALLED', payload)
-
 
       if (isCorrect) {
         const questionsIncorrectlyAnswered = [...state.questionsIncorrectlyAnswered.filter(answer => answer.question !== currentQuestion?.question)]

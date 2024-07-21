@@ -3,10 +3,12 @@ import { AnswerQuestion } from '../components/AnswerQuestion'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { useEffect, useState } from 'react'
-import { submitRetryAnswer } from '../store/quizSlice'
+import { setFinished, submitRetryAnswer } from '../store/quizSlice'
+import { useNavigate } from 'react-router-dom'
 
 export const Retry: React.FC = () => {
   const dispatch: TAppDispatch = useDispatch()
+  const navigate = useNavigate()
 
   const questions = useSelector(
     (state: IRootState) => state.quiz.questionsIncorrectlyAnswered
@@ -30,6 +32,17 @@ export const Retry: React.FC = () => {
 
   const handleSubmit = (answer: string, questionNumber: number) => {
     dispatch(submitRetryAnswer(answer))
+
+    const isLastQuestion = options?.length
+
+    if (isLastQuestion) {
+      dispatch(setFinished())
+      navigate(`/quiz/results`, { replace: true })
+    } else {
+      navigate(`/quiz/question/${Number(questionNumber) + 1}`, {
+        replace: true,
+      })
+    }
     console.log('HANDLE SUBMIT')
   }
 
