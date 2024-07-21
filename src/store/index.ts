@@ -2,8 +2,12 @@ import { configureStore } from '@reduxjs/toolkit'
 import quizReducer, { IQuizState } from './quizSlice'
 import categoriesReducer, { IInitialCategoriesState } from './categoriesSlice'
 import questionsReducer, { IInitialQuestionState } from './questionsSlice'
+import { loadState, saveState } from '../helpers/localStorage'
 
+
+const preloadedState = loadState();
 export const store = configureStore({
+  preloadedState,
   reducer: {
     quiz: quizReducer,
     categories: categoriesReducer,
@@ -11,6 +15,10 @@ export const store = configureStore({
   },
   devTools: true,
 })
+
+store.subscribe(() => {
+  saveState(store.getState());
+});          
 
 export interface IRootState {
   quiz: IQuizState
