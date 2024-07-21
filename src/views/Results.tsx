@@ -1,24 +1,44 @@
-import { useSelector } from 'react-redux'
-import { IRootState } from '../store'
-import { Button, Card, List, Space } from 'antd'
-import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { IRootState, TAppDispatch } from '../store'
+import { Button } from 'antd'
 import { UtilCentered } from '../components/UtilCentered'
+import { useNavigate } from 'react-router-dom'
+import { setRetry } from '../store/quizSlice'
 
 export const Results: React.FC = () => {
-  const [hoverIndex, setHoverIndex] = useState<null | number>(null)
+  const navigate = useNavigate()
+  const dispatch: TAppDispatch = useDispatch()
+
   const quizState = useSelector((state: IRootState) => state.quiz)
   const incorrectAnswersCount = useSelector(
     (state: IRootState) => state.quiz.incorrectAnswersCount
   )
 
-  const { correctAnswersCount, questionsIncorrectlyAnswered } = quizState
+  const { correctAnswersCount } = quizState
 
   const points = <h2>Points: {quizState.points}</h2>
 
   const correctCounter = <div>{`Correct count: ${correctAnswersCount}`}</div>
   const incorrectCounter = (
-    <div>{`Incorrect count: ${incorrectAnswersCount}`}</div>
+    <div>
+      {`Incorrect count 🙁: ${incorrectAnswersCount}`}
+
+      <Button
+        onClick={() => goToRetry()}
+        style={{ margin: '2rem' }}
+        type="primary"
+        size="large"
+      >
+        Re-try
+      </Button>
+    </div>
   )
+
+  const goToRetry = () => {
+    const questionNumber = +1
+    dispatch(setRetry())
+    navigate(`/quiz/question/retry/${questionNumber}`)
+  }
 
   if (incorrectAnswersCount < 1) {
     return (
@@ -30,72 +50,12 @@ export const Results: React.FC = () => {
       </section>
     )
   } else {
-    const dataSource = questionsIncorrectlyAnswered
-
-    const getCardStyle = (index: number) => {
-      const hovered = index == hoverIndex
-      const red = '#FC4D3C'
-
-      return {
-        display: 'flex',
-        alignItems: 'center',
-        width: 400,
-        paddingLeft: 10,
-        paddingRight: 10,
-        fontSize: 18,
-        backgroundColor: hovered ? red : undefined,
-        color: hovered ? 'white' : undefined,
-        borderWidth: 3,
-        borderColor: hovered ? red : undefined,
-      }
-    }
-
     return (
       <section style={{ marginTop: '5rem', marginBottom: '5rem' }}>
         <UtilCentered>
           {points}
           {correctCounter}
           {incorrectCounter}
-          <h3>Incorrect Questions</h3>
-          <p style={{ paddingRight: '2rem', paddingLeft: '2rem' }}>
-            Do you want to give another try? Click on the question to change
-            your answer.
-          </p>
-
-          <Space
-            style={{ cursor: 'pointer' }}
-            direction="vertical"
-            align="center"
-          >
-            {dataSource.map((item, index) => (
-              <Card
-                onClick={() => onclick}
-                size="small"
-                style={getCardStyle(index)}
-                onMouseEnter={() => setHoverIndex(index)}
-                onMouseLeave={() => setHoverIndex(null)}
-                key={index}
-              >
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <span style={{ fontSize: '2rem', marginRight: '1rem' }}>
-                    🙁
-                  </span>
-                  <span>{item.question}</span>
-                </div>
-              </Card>
-            ))}
-          </Space>
-
-          {/* <Button
-          disabled={!answer}
-          onClick={() => handleSubmit()}
-          style={{ margin: '2rem' }}
-          type="primary"
-          size="large"
-          icon={<AntDesignOutlined />}
-        >
-          Submit
-        </Button> */}
         </UtilCentered>
       </section>
     )
