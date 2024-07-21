@@ -1,10 +1,13 @@
 import { UtilCentered } from '../components/UtilCentered'
 import { AnswerQuestion } from '../components/AnswerQuestion'
-import { useSelector } from 'react-redux'
-import { IRootState } from '../store'
+import { useDispatch, useSelector } from 'react-redux'
+import { IRootState, TAppDispatch } from '../store'
 import { useEffect, useState } from 'react'
+import { submitRetryAnswer } from '../store/quizSlice'
 
 export const Retry: React.FC = () => {
+  const dispatch: TAppDispatch = useDispatch()
+
   const questions = useSelector(
     (state: IRootState) => state.quiz.questionsIncorrectlyAnswered
   )
@@ -26,6 +29,7 @@ export const Retry: React.FC = () => {
   }, [questions, currentQuestion])
 
   const handleSubmit = (answer: string, questionNumber: number) => {
+    dispatch(submitRetryAnswer(answer))
     console.log('HANDLE SUBMIT')
   }
 
