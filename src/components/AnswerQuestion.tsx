@@ -6,6 +6,7 @@ import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   IQuestion,
+  resetQuiz,
   setCurrentQuestion,
   setFinished,
   setQuestionNumber,
@@ -13,7 +14,7 @@ import {
 } from '../store/quizSlice'
 import { UtilCentered } from './UtilCentered'
 import { useEffect, useState } from 'react'
-import { AntDesignOutlined } from '@ant-design/icons'
+import { AntDesignOutlined, PoundCircleFilled } from '@ant-design/icons'
 
 export const AnswerQuestion = () => {
   const navigate = useNavigate()
@@ -87,6 +88,11 @@ export const AnswerQuestion = () => {
     }
   }
 
+  const handleReset = () => {
+    navigate('/')
+    dispatch(resetQuiz())
+  }
+
   return (
     <section style={{ marginTop: '-12rem' }}>
       <h2 style={{ padding: '2rem' }}>{currentQuestion?.question}</h2>
@@ -120,6 +126,15 @@ export const AnswerQuestion = () => {
           icon={<AntDesignOutlined />}
         >
           Submit
+        </Button>
+
+        <Button
+          type="primary"
+          size="large"
+          icon={<PoundCircleFilled />}
+          onClick={handleReset}
+        >
+          Reset quiz
         </Button>
       </UtilCentered>
     </section>

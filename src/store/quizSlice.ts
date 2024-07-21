@@ -71,13 +71,12 @@ const quizSlice = createSlice({
       const category = { id: value, name: label }
       return { ...state, category }
     },
-    setFinished: (state, { payload }) => {
+    setFinished: (state) => {
       console.log('SET FINISHED')
       const finished = true
       return { ...state, finished }
     },
     resetQuiz: () => initialState,
-
     submitAnswer: (state, { payload }) => {
       const { currentQuestion } = state
       const isCorrect = payload == currentQuestion?.correct_answer
