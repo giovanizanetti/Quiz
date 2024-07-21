@@ -4,7 +4,7 @@ export const useEffectOnce = (effect: () => void | (() => void)) => {
   const destroyFunc = useRef<void | (() => void)>()
   const effectCalled = useRef(false)
   const renderAfterCalled = useRef(false)
-  const [val, setVal] = useState<number>(0)
+  const [_, setVal] = useState<number>(0)
 
   if (effectCalled.current) {
     renderAfterCalled.current = true

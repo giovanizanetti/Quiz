@@ -1,7 +1,7 @@
 import { Card, Space } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   IQuestion,
   resetQuiz,
@@ -21,7 +21,6 @@ export const AnswerQuestion: React.FC<{
   questionNumber: number
 }> = ({ questions, handleSubmit, options, questionNumber }) => {
   const navigate = useNavigate()
-  const params = useParams()
   const dispatch: TAppDispatch = useDispatch()
 
   const [answer, setAnswer] = useState<string | null>(null)

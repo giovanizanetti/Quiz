@@ -36,7 +36,7 @@ export const CategorySelect: React.FC = () => {
   }
 
   const handleChange = (
-    value: string,
+    _: string,
     option?: ISelectorOption | ISelectorOption[]
   ) => {
     dispatch(selectCategory(option))

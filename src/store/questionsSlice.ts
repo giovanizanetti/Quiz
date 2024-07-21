@@ -22,7 +22,7 @@ export interface IInitialQuestionState {
 
 export const fetchQuestions: TFetchQuestionsAction = createAsyncThunk(
   'fetchQuestions',
-  async (params, { getState }) => {
+  async (_, { getState }) => {
     const { quiz } = getState() as IRootState
 
     const category = quiz.category.id

@@ -4,9 +4,8 @@ import categoriesReducer, { IInitialCategoriesState } from './categoriesSlice'
 import questionsReducer, { IInitialQuestionState } from './questionsSlice'
 import { loadState, saveState } from '../helpers/localStorage'
 
-
-const preloadedState = loadState();
-export const store = configureStore({
+const preloadedState = loadState()
+export const store = configureStore<IRootState>({
   preloadedState,
   reducer: {
     quiz: quizReducer,
@@ -17,8 +16,8 @@ export const store = configureStore({
 })
 
 store.subscribe(() => {
-  saveState(store.getState());
-});          
+  saveState(store.getState())
+})
 
 export interface IRootState {
   quiz: IQuizState

@@ -14,6 +14,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'no-unused-vars': ['warn', { args: 'none' }],
   },
-  semi: ["error", "never"],
+  semi: ['error', 'never'],
 }

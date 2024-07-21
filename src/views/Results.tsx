@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
-import { Button } from 'antd'
 import { UtilCentered } from '../components/UtilCentered'
 import { useNavigate } from 'react-router-dom'
 import { setRetry } from '../store/quizSlice'

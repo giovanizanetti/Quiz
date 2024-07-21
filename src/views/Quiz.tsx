@@ -6,7 +6,6 @@ import { useEffectOnce } from '../helpers/react'
 import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
 import {
   setFinished,
-  setQuestionNumber,
   submitAnswer,
 } from '../store/quizSlice'
 import { useNavigate, useParams } from 'react-router-dom'
