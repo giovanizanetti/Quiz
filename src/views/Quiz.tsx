@@ -1,8 +1,7 @@
 import { UtilCentered } from '../components/UtilCentered'
 import { AnswerQuestion } from '../components/AnswerQuestion'
-// import { Question } from '../components/AnswerQuestion'
 
-export const Quiz = () => {
+export const Quiz: React.FC = () => {
   return (
     <UtilCentered>
       <AnswerQuestion />

@@ -6,6 +6,7 @@ import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   IQuestion,
+  resetQuiz,
   setCurrentQuestion,
   setFinished,
   setQuestionNumber,
@@ -13,7 +14,7 @@ import {
 } from '../store/quizSlice'
 import { UtilCentered } from './UtilCentered'
 import { useEffect, useState } from 'react'
-import { AntDesignOutlined } from '@ant-design/icons'
+import { AntDesignOutlined, PoundCircleFilled } from '@ant-design/icons'
 
 export const AnswerQuestion = () => {
   const navigate = useNavigate()
@@ -75,16 +76,21 @@ export const AnswerQuestion = () => {
   const handleSubmit = () => {
     if (!answer) console.warn('Not possible to submit. No answer was given.')
     dispatch(submitAnswer(answer))
-    const isLastQuestion = questionNumber == questions.data.length
+    const isLastQuestion = Number(questionNumber) == questions.data.length
     setAnswer(null)
     if (isLastQuestion) {
-      dispatch(setFinished(true))
+      dispatch(setFinished())
       navigate(`/quiz/results`, { replace: true })
     } else {
       navigate(`/quiz/question/${Number(questionNumber) + 1}`, {
         replace: true,
       })
     }
+  }
+
+  const handleReset = () => {
+    dispatch(resetQuiz())
+    navigate('/')
   }
 
   return (
@@ -120,6 +126,15 @@ export const AnswerQuestion = () => {
           icon={<AntDesignOutlined />}
         >
           Submit
+        </Button>
+
+        <Button
+          type="primary"
+          size="large"
+          icon={<PoundCircleFilled />}
+          onClick={handleReset}
+        >
+          Reset quiz
         </Button>
       </UtilCentered>
     </section>

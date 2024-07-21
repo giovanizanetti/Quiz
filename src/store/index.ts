@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import quizReducer, { IQuizState } from './quizSlice'
-import categoriesReducer, { ICategoriesState } from './categoriesSlice'
-import questionsReducer, { IQuestionsState } from './questionsSlice'
+import categoriesReducer, { IInitialCategoriesState } from './categoriesSlice'
+import questionsReducer, { IInitialQuestionState } from './questionsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -14,8 +14,8 @@ export const store = configureStore({
 
 export interface IRootState {
   quiz: IQuizState
-  categories: ICategoriesState
-  questions: IQuestionsState
+  categories: IInitialCategoriesState
+  questions: IInitialQuestionState
 }
 
 export type TRootState = ReturnType<typeof store.getState>

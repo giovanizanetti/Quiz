@@ -4,20 +4,18 @@ import { IRootState } from '../store'
 import { getInitialTimer, getQuestionsCount } from '../helpers/quiz'
 import Timer from './Timer'
 import { useState } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 
 const { Header } = Layout
 
 export const NavBar: React.FC = () => {
   const quizState = useSelector((state: IRootState) => state.quiz)
-  const questions = useSelector((state: IRootState) => state.questions)
-  const finished = useSelector((state: IRootState) => state.quiz.finished)
-
+  // const questions = useSelector((state: IRootState) => state.questions)
+  const isAnswering = useSelector((state: IRootState) => state.quiz.isAnswering)
   const questionNumber = quizState.questionNumber
   const level = quizState.level
-  const isAnswering = quizState.questionNumber
 
   const counter = `${questionNumber} / ${getQuestionsCount(level)}`
-  const isLastQuestion = questionNumber == questions.data.length
 
   return (
     <Layout>
@@ -44,7 +42,7 @@ export const NavBar: React.FC = () => {
         <span>
           {isAnswering && (
             <>
-              {!finished && (
+              {isAnswering && (
                 <Timer
                   initialSeconds={getInitialTimer(quizState.level)}
                   key={questionNumber}

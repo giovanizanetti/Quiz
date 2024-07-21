@@ -13,18 +13,11 @@ const styleCenter = {
   width: '100%',
 }
 
-export const Home = () => {
+export const Home: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-
   const buttonLabel = capitalize(t('start-type', { type: t('quiz') }))
-
   const goToQuiz = () => navigate('quiz/question/1')
-
-  const onClick = () => {
-    goToQuiz()
-  }
 
   return (
     <Space
@@ -38,7 +31,7 @@ export const Home = () => {
         <CategorySelect />
       </Space>
       <Button
-        onClick={onClick}
+        onClick={goToQuiz}
         style={{ margin: '2rem' }}
         type="primary"
         size="large"

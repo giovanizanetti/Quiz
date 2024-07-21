@@ -10,14 +10,10 @@ export type TQuestionType = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE]
 export type TFetchQuestionsAction = AsyncThunk<
   IQuestion[],
   void,
-  { state: IQuestionsState }
+  { state: IInitialQuestionState }
 >
 
-interface IQuestionsState {
-  questions: IInitialState
-}
-
-interface IInitialState {
+export interface IInitialQuestionState {
   loading: boolean
   errorMessaage: string
   success: boolean
@@ -40,7 +36,7 @@ export const fetchQuestions: TFetchQuestionsAction = createAsyncThunk(
         : null
 
     const amount = getQuestionsCount(difficulty)
-    
+
     let url = `${OPEN_DB_BASE_URL}/api.php?amount=${amount}&category=${category}&`
 
     if (type) {
