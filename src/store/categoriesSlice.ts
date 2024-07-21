@@ -1,30 +1,26 @@
 import { createSlice, createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit'
 import { OPEN_DB_BASE_URL } from '../constants'
 import i18n from '../config/i18n'
-import { IQuizState } from './quizSlice'
 
 export type TFetchCategoryAction = AsyncThunk<
   ICategory[],
   void,
-  { state: ICategoriesState }
+  { state: IInitialCategoriesState }
 >
 
 export interface ICategory {
   id: number
   name: string
 }
-export interface ICategoriesState {
-  categories: IInitialState
-}
 
-interface IInitialState {
+export interface IInitialCategoriesState {
   loading: boolean
   errorMessaage: string
   success: boolean
   data: ICategory[]
 }
 
-const initialState: IInitialState = {
+const initialState: IInitialCategoriesState = {
   loading: false,
   errorMessaage: '',
   success: false,
@@ -33,12 +29,12 @@ const initialState: IInitialState = {
 
 export const fetchCategories: TFetchCategoryAction = createAsyncThunk(
   'fetchCategories',
-  async () => {
+  async (): Promise<ICategory[]> => {
     const response = await fetch(`${OPEN_DB_BASE_URL}/api_category.php`, {
       method: 'GET',
     })
     const data = await response.json()
-    return data.trivia_categories //todo type
+    return data.trivia_categories as ICategory[]
   }
 )
 

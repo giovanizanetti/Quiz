@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { LEVEL, QUESTION_TYPE } from '../constants'
 import { ISelectorOption } from '../components/UtilSelector'
-import { getInitialTimer } from '../helpers/quiz'
 
 export type TLevel = (typeof LEVEL)[keyof typeof LEVEL]
 export type Ttype = (typeof QUESTION_TYPE)[keyof typeof QUESTION_TYPE]
@@ -72,11 +71,10 @@ const quizSlice = createSlice({
       return { ...state, category }
     },
     setFinished: (state) => {
-      console.log('SET FINISHED')
       const finished = true
       return { ...state, finished }
     },
-    resetQuiz: () => initialState,
+    resetQuiz: (state) => initialState,
     submitAnswer: (state, { payload }) => {
       const { currentQuestion } = state
       const isCorrect = payload == currentQuestion?.correct_answer
@@ -86,7 +84,7 @@ const quizSlice = createSlice({
         const questionsCorrectlyAnswered = [
           ...state.questionsCorrectlyAnswered,
           currentQuestion,
-        ]
+        ] as IQuestion[]
         const points =
           currentQuestion?.type == QUESTION_TYPE.boolean
             ? state.points + 5
@@ -103,7 +101,7 @@ const quizSlice = createSlice({
         const questionsIncorrectlyAnswered = [
           ...state.questionsIncorrectlyAnswered,
           currentQuestion,
-        ]
+        ] as IQuestion[]
         return { ...state, incorrectAnswersCount, questionsIncorrectlyAnswered }
       }
     },

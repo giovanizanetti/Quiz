@@ -79,7 +79,7 @@ export const AnswerQuestion = () => {
     const isLastQuestion = questionNumber == questions.data.length
     setAnswer(null)
     if (isLastQuestion) {
-      dispatch(setFinished(true))
+      dispatch(setFinished())
       navigate(`/quiz/results`, { replace: true })
     } else {
       navigate(`/quiz/question/${Number(questionNumber) + 1}`, {
@@ -90,7 +90,7 @@ export const AnswerQuestion = () => {
 
   const handleReset = () => {
     navigate('/')
-    dispatch(resetQuiz())
+    dispatch(() => resetQuiz())
   }
 
   return (
