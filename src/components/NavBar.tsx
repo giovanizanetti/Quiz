@@ -1,11 +1,13 @@
-import { Layout } from 'antd'
+import { Button, Dropdown, Layout, Menu, Space } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { getInitialTimer, getQuestionsCount } from '../helpers/quiz'
 import { Timer } from './Timer'
 import { useNavigate } from 'react-router-dom'
 import { setIncorrectQuestion } from '../store/quizSlice'
-import { RED } from '../constants'
+import { LANGUAGE, RED } from '../constants'
+import { UtilSelector } from './UtilSelector'
+import LanguageSelector from './LanguageSelector'
 
 const { Header } = Layout
 
@@ -16,11 +18,7 @@ export const NavBar: React.FC = () => {
   const questions = useSelector((state: IRootState) => state.questions.data)
   const isAnswering = useSelector((state: IRootState) => state.quiz.isAnswering)
   const questionNumber = quizState.questionNumber
-  const level = quizState.level
 
-  const isRetrying = useSelector((state: IRootState) => state.quiz.retrying)
-
-  const counter = `${questionNumber} / ${!isRetrying  ? getQuestionsCount(level): quizState.questionsIncorrectlyAnswered?.length}`
   const goToQuiz = () => navigate(`quiz/question/${Number(questionNumber) + 1}`)
   const handleTimeOut = () => {
     const isLastQuestion = Number(questionNumber) == questions.length
@@ -43,7 +41,7 @@ export const NavBar: React.FC = () => {
           color: 'white',
           top: 0,
           justifyContent: 'space-around',
-          background: RED
+          background: RED,
         }}
       >
         <div
@@ -66,9 +64,11 @@ export const NavBar: React.FC = () => {
                   key={questionNumber}
                 />
               )}
-              <span style={{ float: 'right' }}>{counter}</span>
             </>
           )}
+        </span>
+        <span style={{ float: 'right' }}>
+          <LanguageSelector />
         </span>
       </Header>
     </Layout>
