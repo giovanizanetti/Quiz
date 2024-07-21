@@ -2,22 +2,23 @@ import { UtilCentered } from '../components/UtilCentered'
 import { AnswerQuestion } from '../components/AnswerQuestion'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
-import { useEffectOnce } from '../helpers/react'
-import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
-import { setFinished, submitAnswer } from '../store/quizSlice'
-import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { setFinished, submitRetryAnswer } from '../store/quizSlice'
+import { useNavigate } from 'react-router-dom'
 
-export const Quiz: React.FC = () => {
-  const questions = useSelector((state: IRootState) => state.questions.data)
+export const Retry: React.FC = () => {
   const dispatch: TAppDispatch = useDispatch()
   const navigate = useNavigate()
+
+  const questions = useSelector(
+    (state: IRootState) => state.quiz.questionsIncorrectlyAnswered
+  )
 
   const currentQuestion = useSelector(
     (state: IRootState) => state.quiz.currentQuestion
   )
 
-  const [options, setOptions] = useState<string[]>([])
+  const [options, setOptions] = useState<string[] | null>(null)
 
   useEffect(() => {
     if (currentQuestion) {
@@ -30,8 +31,10 @@ export const Quiz: React.FC = () => {
   }, [questions, currentQuestion])
 
   const handleSubmit = (answer: string, questionNumber: number) => {
-    dispatch(submitAnswer(answer))
-    const isLastQuestion = Number(questionNumber) == questions.length
+    dispatch(submitRetryAnswer(answer))
+
+    const isLastQuestion = options?.length
+
     if (isLastQuestion) {
       dispatch(setFinished())
       navigate(`/quiz/results`, { replace: true })
@@ -40,18 +43,18 @@ export const Quiz: React.FC = () => {
         replace: true,
       })
     }
+    console.log('HANDLE SUBMIT')
   }
 
-  useEffectOnce(() => {
-    dispatch(fetchQuestions() as unknown as TFetchQuestionsAction)
-  })
   return (
     <UtilCentered>
-      <AnswerQuestion
-        questions={questions}
-        handleSubmit={handleSubmit}
-        options={options}
-      />
+      {options?.length && (
+        <AnswerQuestion
+          questions={questions}
+          handleSubmit={handleSubmit}
+          options={options}
+        />
+      )}
     </UtilCentered>
   )
 }

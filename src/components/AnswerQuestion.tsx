@@ -1,54 +1,44 @@
 import { Button, Card, Space } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
-import { useEffectOnce } from '../helpers/react'
-import { TFetchQuestionsAction, fetchQuestions } from '../store/questionsSlice'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   IQuestion,
   resetQuiz,
   setCurrentQuestion,
-  setFinished,
   setQuestionNumber,
-  submitAnswer,
 } from '../store/quizSlice'
 import { UtilCentered } from './UtilCentered'
 import { useEffect, useState } from 'react'
 import { AntDesignOutlined, PoundCircleFilled } from '@ant-design/icons'
 
-export const AnswerQuestion = () => {
+export const AnswerQuestion: React.FC<{
+  retry?: boolean
+  questions: IQuestion[]
+  options: string[]
+  handleSubmit: (answer: string, questionNumber: number) => void
+}> = ({ retry, questions, handleSubmit, options }) => {
   const navigate = useNavigate()
   const params = useParams()
   const dispatch: TAppDispatch = useDispatch()
 
-  useEffectOnce(() => {
-    dispatch(fetchQuestions() as unknown as TFetchQuestionsAction)
-  })
-
   const [answer, setAnswer] = useState<string | null>(null)
   const [hoverIndex, setHoverIndex] = useState<null | number>(null)
 
+  const currentQuestion = useSelector(
+    (state: IRootState) => state.quiz.currentQuestion
+  )
+
   const questionNumber = params.questionNumber
   const questionIndex = Number(questionNumber) - 1
-  const questions = useSelector((state: IRootState) => state.questions)
-
-  const currentQuestion: IQuestion | null =
-    questions?.data?.[questionIndex] || null
-
-  const options = currentQuestion?.incorrect_answers.concat([
-    currentQuestion.correct_answer,
-  ])
 
   useEffect(() => {
-    //TODO: FIX those to run once
-    if (currentQuestion) {
-      dispatch(setCurrentQuestion(currentQuestion))
-    }
-
     if (questionNumber) {
+      const current: IQuestion | null = questions?.[questionIndex] || null
       dispatch(setQuestionNumber(questionNumber))
+      dispatch(setCurrentQuestion(current))
     }
-  }, [currentQuestion, questionNumber])
+  }, [questionNumber, questionIndex, questions])
 
   const getCardStyle = (item: string, index: number) => {
     const hovered = index == hoverIndex
@@ -73,24 +63,17 @@ export const AnswerQuestion = () => {
     }
   }
 
-  const handleSubmit = () => {
-    if (!answer) console.warn('Not possible to submit. No answer was given.')
-    dispatch(submitAnswer(answer))
-    const isLastQuestion = Number(questionNumber) == questions.data.length
-    setAnswer(null)
-    if (isLastQuestion) {
-      dispatch(setFinished())
-      navigate(`/quiz/results`, { replace: true })
-    } else {
-      navigate(`/quiz/question/${Number(questionNumber) + 1}`, {
-        replace: true,
-      })
-    }
-  }
-
   const handleReset = () => {
     dispatch(resetQuiz())
     navigate('/')
+  }
+
+  const onsubmit = () => {
+    if (!answer)
+      return console.warn('Not possible to submit. No answer was given.')
+
+    handleSubmit(answer, questionNumber as unknown as number)
+    setAnswer(null)
   }
 
   return (
@@ -119,7 +102,7 @@ export const AnswerQuestion = () => {
 
         <Button
           disabled={!answer}
-          onClick={() => handleSubmit()}
+          onClick={() => onsubmit()}
           style={{ margin: '2rem' }}
           type="primary"
           size="large"
