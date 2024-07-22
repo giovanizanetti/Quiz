@@ -4,9 +4,17 @@
   "hard": "moeilijk",
   "level": "niveau",
   "select": "select",
-  "quiz":"quiz",
+  "quiz": "quiz",
   "select-type": "@:select {type}",
   "start-type": "{{type}} starten",
   "defaultErrorMessage": "Oeps!! Er is iets misgegaan 🙁",
-  "category": "categorie"
+  "category": "categorie",
+  "submit": "verzend",
+  "pageNotFound": "pagina niet gevonden",
+  "notFoundMessage": "Sorry, de pagina die u zoekt bestaat niet.",
+  "clickToselSelectLevelCategory": "Klik om een ​​niveau en categorie te selecteren",
+  "points": "punten",
+  "correctCount": "correcte telling",
+  "incorrectCount": "onjuiste telling",
+  "wellDoneMsg":"Goed gedaan, je hebt het helemaal goed!"
 }

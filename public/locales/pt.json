@@ -4,9 +4,18 @@
   "hard": "difícil",
   "level": "nível",
   "select": "select",
-  "quiz":"quiz",
+  "quiz": "quiz",
   "select-type": "@:select {type}",
   "start-type": "iniciar {{type}}",
   "defaultErrorMessage": "Opa!! Algo deu erradoi 🙁",
-  "category": "categoria"
+  "category": "categoria",
+  "submit": "responder",
+  "resetQuiz": "reiniciar quiz",
+  "pageNotFound": "página não encontrada",
+  "notFoundMessage": "Desculpe, a página que você está procurando não existe.",
+  "clickToselSelectLevelCategory": "Clique para selecionar um nível e categoria",
+  "points": "pontos",
+  "correctCount": "correta contagem",
+  "incorrectCount": "incorreta contagem",
+  "wellDoneMsg": "Muito bem, você acertou todas!"
 }

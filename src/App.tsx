@@ -1,7 +1,7 @@
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from './views/Home'
-import { NotFound } from './components/NotFound'
+import { NotFound } from './views/NotFound'
 import { NavBar } from './components/NavBar'
 import { Quiz } from './views/Quiz'
 import { Results } from './views/Results'
