@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Home page is rendered > matches the snapshot 1`] = `<DocumentFragment />`;
+
+exports[`V > matches the snapshot 1`] = `<DocumentFragment />`;
+
+exports[`View are rendered correctelly > HOmatches the snapshot 1`] = `<DocumentFragment />`;
+
+exports[`View are rendered correctelly > Home view matches the snapshot 1`] = `<DocumentFragment />`;
+
+exports[`View are rendered correctelly > Not FOund view matches the snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <h1>
+      404 - PageNotFound
+    </h1>
+    <p>
+      notFoundMessage
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`View are rendered correctelly > Not Found view matches the snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <h1>
+      404 - PageNotFound
+    </h1>
+    <p>
+      notFoundMessage
+    </p>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`View are rendered correctelly > matches the snapshot 1`] = `<DocumentFragment />`;

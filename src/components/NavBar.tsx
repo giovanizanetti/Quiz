@@ -5,7 +5,7 @@ import { getInitialTimer, getQuestionsCount } from '../helpers/quiz'
 import { Timer } from './Timer'
 import { useNavigate } from 'react-router-dom'
 import { setIncorrectQuestion } from '../store/quizSlice'
-import { RED } from '../constants'
+import { APP_NAME, RED } from '../constants'
 import LanguageSelector from './LanguageSelector'
 
 const { Header } = Layout
@@ -59,7 +59,7 @@ export const NavBar: React.FC = () => {
             width: '50%',
           }}
         >
-          MyQuiz
+          {APP_NAME}
         </div>
         <span>
           {isAnswering && (
@@ -88,3 +88,4 @@ export const NavBar: React.FC = () => {
     </Layout>
   )
 }
+

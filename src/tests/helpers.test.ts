@@ -1,5 +1,5 @@
 import { expect, test, describe } from "vitest";
-import { capitalize } from "./strings";
+import { capitalize } from "../helpers/strings";
 
 describe("Helpers", () => {
   describe("String helpers", () => {
