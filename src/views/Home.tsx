@@ -15,7 +15,7 @@ const styleCenter = {
   width: '100%',
 }
 
-const Home: React.FC = () => {
+export const Home: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
