@@ -40,6 +40,8 @@ Mediun is the default level, General Knowledge is the default category
 
 * **Language Selector**: The uner can choos among (English, Dutch or Portuguese)
 
+* **Automatic Deplyment**: Aplicaction is deployed using [Netlify](https://app.netlify.com/)
+
 ### Technologies
 * React 
 * Typescript
