@@ -7,7 +7,7 @@ This quiz application was made as an assignment for a frontend job position.
 
 The user is presented with a home page where they can select a category and the level before answering the quiz.
 
-Easy is teh default level, General Knowledge is the default category
+Medium is the default level, General Knowledge is the default category
 
 * According to the level, the user is presented with one of the settings👇🏻
 
