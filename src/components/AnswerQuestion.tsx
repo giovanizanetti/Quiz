@@ -71,7 +71,7 @@ export const AnswerQuestion: React.FC<{
     navigate('/')
   }
 
-  const onsubmit = () => {
+  const onSubmit = () => {
     if (!answer)
       return console.warn('Not possible to submit. No answer was given.')
 
@@ -107,7 +107,7 @@ export const AnswerQuestion: React.FC<{
           <UtilButton onClick={handleReset}>
             <span>X </span> {t('resetQuiz')}
           </UtilButton>
-          <UtilButton disabled={!answer} onClick={() => onsubmit()}>
+          <UtilButton disabled={!answer} onClick={() => onSubmit()}>
             {capitalize(t('submit'))}
           </UtilButton>
         </span>
