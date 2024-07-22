@@ -55,14 +55,14 @@ export const Results: React.FC = () => {
     return (
       <section>
         <UtilCentered>
-          <p style={{ fontSize: '1rem', padding: '1rem' }}>
+          <p style={{ fontSize: '1.5rem', padding: '1rem' }}>
             {t('wellDoneMsg')}
-            <span style={{ fontSize: '5rem' }}>🎉</span>
-            <UtilButton onClick={handleReset}>
-              <span>X </span> {t('resetQuiz')}
-            </UtilButton>
+            <span style={{ fontSize: '4rem'}}>🎉</span>
           </p>
           {points}
+          <UtilButton onClick={handleReset}>
+            <span>X </span> {t('resetQuiz')}
+          </UtilButton>
         </UtilCentered>
       </section>
     )

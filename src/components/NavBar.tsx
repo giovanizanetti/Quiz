@@ -55,7 +55,7 @@ export const NavBar: React.FC = () => {
           className="logo"
           style={{
             float: 'left',
-            fontSize: '20px',
+            fontSize: '30px',
             width: '50%',
           }}
         >
@@ -76,7 +76,11 @@ export const NavBar: React.FC = () => {
         </span>
         <span style={{ float: 'right' }}>
           {isAnswering && (
-            <span style={{ marginRight: '3rem' }}>{counter}</span>
+            <span
+              style={{ marginRight: '3rem', fontSize: '1rem', fontWeight: 'bold' }}
+            >
+              {counter}
+            </span>
           )}
           <LanguageSelector />
         </span>
