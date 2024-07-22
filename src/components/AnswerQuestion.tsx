@@ -91,6 +91,7 @@ export const AnswerQuestion: React.FC<{
         >
           {options?.map((item, index) => (
             <Card
+              tabIndex={0}
               onClick={() => setAnswer(item)}
               size="small"
               style={getCardStyle(item, index)}
