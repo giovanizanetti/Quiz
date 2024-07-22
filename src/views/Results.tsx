@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IRootState, TAppDispatch } from '../store'
 import { UtilCentered } from '../components/UtilCentered'
 import { useNavigate } from 'react-router-dom'
-import { setRetry } from '../store/quizSlice'
+import { resetQuiz, setRetry } from '../store/quizSlice'
 import { UtilButton } from '../components/UtilButton'
 import { useTranslation } from 'react-i18next'
 import { capitalize } from '../helpers/strings'
@@ -21,7 +21,16 @@ export const Results: React.FC = () => {
 
   const { correctAnswersCount } = quizState
 
-  const points = <h1>{capitalize(t('points'))}: {quizState.points}</h1>
+  const handleReset = () => {
+    dispatch(resetQuiz())
+    navigate('/')
+  }
+
+  const points = (
+    <h1>
+      {capitalize(t('points'))}: {quizState.points}
+    </h1>
+  )
 
   const counter = (
     <>
@@ -33,8 +42,6 @@ export const Results: React.FC = () => {
         {`${capitalize(t('incorrectCount'))} : ${incorrectAnswersCount}`}
         <span style={{ fontSize: '2rem', margin: '1rem' }}>🙁</span>
       </h3>
-
-      <UtilButton onClick={() => goToRetry()}>Re-try</UtilButton>
     </>
   )
 
@@ -48,11 +55,14 @@ export const Results: React.FC = () => {
     return (
       <section>
         <UtilCentered>
-          <p style={{ fontSize: '2rem', padding: '1rem' }}>
+          <p style={{ fontSize: '1.5rem', padding: '1rem' }}>
             {t('wellDoneMsg')}
-            <span style={{ fontSize: '10rem' }}>🎉</span>
+            <span style={{ fontSize: '4rem'}}>🎉</span>
           </p>
           {points}
+          <UtilButton onClick={handleReset}>
+            <span>X </span> {t('resetQuiz')}
+          </UtilButton>
         </UtilCentered>
       </section>
     )
@@ -62,6 +72,11 @@ export const Results: React.FC = () => {
         <UtilCentered>
           {points}
           {counter}
+          <UtilButton onClick={() => goToRetry()}>Re-try</UtilButton>
+
+          <UtilButton onClick={handleReset}>
+            <span>X </span> {t('resetQuiz')}
+          </UtilButton>
         </UtilCentered>
       </section>
     )
