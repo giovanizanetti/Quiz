@@ -7,7 +7,7 @@ This quiz application was made as an assignment for a frontend job position.
 
 The user is presented with a home page where they can select a category and the level before answering the quiz.
 
-Easy is teh default level, General Knowledge is the default category
+Mediun is the default level, General Knowledge is the default category
 
 * According to the level, the user is presented with one of the settings👇🏻
 
@@ -28,15 +28,17 @@ Easy is teh default level, General Knowledge is the default category
 
 ### Features
 
-*By starting the quiz, the user is redirected to `/quiz/question{question_number}`.
+* **Routing**: By starting the quiz, the user is redirected to `/quiz/question{question_number}`.
 
-* After the last question, the user is presented with the results view containing the summary of points, correct and incorrect count.
+* **Results** view: After the last question, the user is presented with the results view containing the summary of points, correct and incorrect count.
 
-* The user can **retry** the incorrect questions. The user is redirected to `/quiz/question/rety{question_number}`
+* **Retry**: The user can **retry** the incorrect questions. The user is redirected to `/quiz/question/rety{question_number}`
 
-* Each question has a timer according to the options above 👆🏼
+* **Timer**: ach question has a timer according to the options above 👆🏼
 
-* The user can **reset** the quiz from any question or from the results page.
+* **Reset**: The user can **reset** the quiz from any question or from the results page.
+
+* **Language Selector**: The uner can choos among (English, Dutch or Portuguese)
 
 ### Technologies
 * React 
