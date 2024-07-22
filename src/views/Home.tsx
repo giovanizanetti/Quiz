@@ -33,7 +33,7 @@ export const Home: React.FC = () => {
         flexDirection: 'column',
       }}
     >
-      <h2>Click to select a level and category</h2>
+      <h2>{t('clickToselSelectLevelCategory')}</h2>
 
       <Space wrap style={styleCenter}>
         <LevelSelect />

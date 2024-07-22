@@ -6,6 +6,7 @@ import { Timer } from './Timer'
 import { useNavigate } from 'react-router-dom'
 import { setIncorrectQuestion } from '../store/quizSlice'
 import { RED } from '../constants'
+import LanguageSelector from './LanguageSelector'
 
 const { Header } = Layout
 
@@ -20,7 +21,11 @@ export const NavBar: React.FC = () => {
 
   const isRetrying = useSelector((state: IRootState) => state.quiz.retrying)
 
-  const counter = `${questionNumber} / ${!isRetrying  ? getQuestionsCount(level): quizState.questionsIncorrectlyAnswered?.length}`
+  const counter = `${questionNumber} / ${
+    !isRetrying
+      ? getQuestionsCount(level)
+      : quizState.questionsIncorrectlyAnswered?.length
+  }`
   const goToQuiz = () => navigate(`quiz/question/${Number(questionNumber) + 1}`)
   const handleTimeOut = () => {
     const isLastQuestion = Number(questionNumber) == questions.length
@@ -43,7 +48,7 @@ export const NavBar: React.FC = () => {
           color: 'white',
           top: 0,
           justifyContent: 'space-around',
-          background: RED
+          background: RED,
         }}
       >
         <div
@@ -66,9 +71,14 @@ export const NavBar: React.FC = () => {
                   key={questionNumber}
                 />
               )}
-              <span style={{ float: 'right' }}>{counter}</span>
             </>
           )}
+        </span>
+        <span style={{ float: 'right' }}>
+          {isAnswering && (
+            <span style={{ marginRight: '3rem' }}>{counter}</span>
+          )}
+          <LanguageSelector />
         </span>
       </Header>
     </Layout>

@@ -3,9 +3,18 @@
   "medium": "medium",
   "hard": "hard",
   "level": "level",
-  "quiz":"quiz",
+  "quiz": "quiz",
   "select-type": "Select {{type}}",
   "start-type": "start {{type}}",
   "defaultErrorMessage": "Oops!! Something went wrong 🙁",
-  "category": "category"
+  "category": "category",
+  "submit": "submit",
+  "resetQuiz": "reset quiz",
+  "pageNotFound": "page Not Found",
+  "notFoundMessage": "Sorry, the page you are looking for does not exist.",
+  "clickToselSelectLevelCategory": "Click to select a level and category",
+  "points": "points",
+  "correctCount": "correct count",
+  "incorrectCount": "incorrect count",
+  "wellDoneMsg":"Well Done you've got it all right!"
 }

@@ -4,8 +4,11 @@ import { UtilCentered } from '../components/UtilCentered'
 import { useNavigate } from 'react-router-dom'
 import { setRetry } from '../store/quizSlice'
 import { UtilButton } from '../components/UtilButton'
+import { useTranslation } from 'react-i18next'
+import { capitalize } from '../helpers/strings'
 
 export const Results: React.FC = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch: TAppDispatch = useDispatch()
 
@@ -18,16 +21,16 @@ export const Results: React.FC = () => {
 
   const { correctAnswersCount } = quizState
 
-  const points = <h1>Points: {quizState.points}</h1>
+  const points = <h1>{capitalize(t('points'))}: {quizState.points}</h1>
 
   const counter = (
     <>
       <h3>
-        {`Correct count: ${correctAnswersCount}`}
+        {`${capitalize(t('correctCount'))}: ${correctAnswersCount}`}
         <span style={{ fontSize: '2rem', margin: '1rem' }}>😀</span>
       </h3>
       <h3>
-        {`Incorrect count : ${incorrectAnswersCount}`}
+        {`${capitalize(t('incorrectCount'))} : ${incorrectAnswersCount}`}
         <span style={{ fontSize: '2rem', margin: '1rem' }}>🙁</span>
       </h3>
 
@@ -46,7 +49,7 @@ export const Results: React.FC = () => {
       <section>
         <UtilCentered>
           <p style={{ fontSize: '2rem', padding: '1rem' }}>
-            Well Done you've got it all right!{' '}
+            {t('wellDoneMsg')}
             <span style={{ fontSize: '10rem' }}>🎉</span>
           </p>
           {points}
@@ -57,8 +60,8 @@ export const Results: React.FC = () => {
     return (
       <section style={{ marginTop: '5rem', marginBottom: '5rem' }}>
         <UtilCentered>
-            {points}
-            {counter}
+          {points}
+          {counter}
         </UtilCentered>
       </section>
     )

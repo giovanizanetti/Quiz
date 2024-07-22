@@ -1,8 +1,13 @@
+import { useTranslation } from 'react-i18next'
+import { capitalize } from '../helpers/strings'
+
 export const NotFound: React.FC = () => {
+  const { t } = useTranslation()
+
   return (
     <div>
-      <h1>404 - Page Not Found</h1>
-      <p>Sorry, the page you are looking for does not exist.</p>
+      <h1>404 - {capitalize(t('pageNotFound'))}</h1>
+      <p>{t('notFoundMessage')}</p>
     </div>
   )
 }

@@ -12,6 +12,8 @@ import { UtilCentered } from './UtilCentered'
 import { useEffect, useState } from 'react'
 import { RED } from '../constants'
 import { UtilButton } from './UtilButton'
+import { capitalize } from '../helpers/strings'
+import { useTranslation } from 'react-i18next'
 
 export const AnswerQuestion: React.FC<{
   retry?: boolean
@@ -20,6 +22,8 @@ export const AnswerQuestion: React.FC<{
   handleSubmit: (answer: string, questionNumber: number) => void
   questionNumber: number
 }> = ({ questions, handleSubmit, options, questionNumber }) => {
+  const { t } = useTranslation()
+
   const navigate = useNavigate()
   const dispatch: TAppDispatch = useDispatch()
 
@@ -101,10 +105,10 @@ export const AnswerQuestion: React.FC<{
 
         <span>
           <UtilButton onClick={handleReset}>
-            <span>X </span> Reset quiz
+            <span>X </span> {t('resetQuiz')}
           </UtilButton>
           <UtilButton disabled={!answer} onClick={() => onsubmit()}>
-            Submit
+            {capitalize(t('submit'))}
           </UtilButton>
         </span>
       </UtilCentered>
