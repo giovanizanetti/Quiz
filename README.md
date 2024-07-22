@@ -5,11 +5,11 @@ This quiz application was made as an assignment for a frontend job position.
 
 ### Description
 
-The user is presented with a home page where the they can select a category and the difficulty level before answering the quiz.
+The user is presented with a home page where they can select a category and the level before answering the quiz.
 
-The default level is easy and the default category is General Knowledge
+Easy is teh default level, General Knowledge is the default category
 
-* According to the category, the user is presented with one of the settings👇🏻
+* According to the level, the user is presented with one of the settings👇🏻
 
 ##### EASY
 - 5 questions
@@ -30,13 +30,13 @@ The default level is easy and the default category is General Knowledge
 
 *By starting the quiz, the user is redirected to `/quiz/question{question_number}`.
 
-* After the last question, the user is presented with the results view containing the summary of points, and correct and incorrect count.
+* After the last question, the user is presented with the results view containing the summary of points, correct and incorrect count.
 
 * The user can **retry** the incorrect questions. The user is redirected to `/quiz/question/rety{question_number}`
 
 * Each question has a timer according to the options above 👆🏼
 
-* The user can **reset** the quiz from any question.
+* The user can **reset** the quiz from any question or from the results page.
 
 ### Technologies
 * React 
