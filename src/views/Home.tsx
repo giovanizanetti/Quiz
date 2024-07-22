@@ -1,7 +1,7 @@
 import { LevelSelect } from '../components/LevelSelect'
 import CategorySelect from '../components/CategorySelect'
 import { Space } from 'antd'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, withTranslation } from 'react-i18next'
 import { capitalize } from '../helpers/strings'
 import { useNavigate } from 'react-router-dom'
 import { UtilButton } from '../components/UtilButton'
@@ -15,7 +15,7 @@ const styleCenter = {
   width: '100%',
 }
 
-export const Home: React.FC = () => {
+const Home: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -44,3 +44,4 @@ export const Home: React.FC = () => {
     </Space>
   )
 }
+export default withTranslation('ns')(Home) as any

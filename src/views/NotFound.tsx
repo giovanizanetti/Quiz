@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { useTranslation, withTranslation } from 'react-i18next'
 import { capitalize } from '../helpers/strings'
 
 export const NotFound: React.FC = () => {
@@ -11,3 +11,5 @@ export const NotFound: React.FC = () => {
     </div>
   )
 }
+
+export default withTranslation('ns')(NotFound) as any
