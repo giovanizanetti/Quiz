@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import Home from '../views/Home'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it} from 'vitest'
 import { I18nextProvider } from 'react-i18next'
 import i18n from '../config/i18n'
 import NotFound from '../views/NotFound'
